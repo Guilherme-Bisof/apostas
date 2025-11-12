@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valora | Aposte com Método, Não com Emoção</title>
+
+    <meta
+      name="description"
+      content="Transforme palpite em decisão. O Valora ensina a identificar apostas de valor, definir stakes inteligentes e criar disciplina de longo prazo."
+    />
+    <meta property="og:title" content="Valora | Aposte com Método" />
+    <meta
+      property="og:description"
+      content="Aprenda a identificar apostas de valor, definir stakes inteligentes e gerir sua banca com disciplina."
+    />
+    <meta property="og:type" content="website" />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ---------------------------------- */
+      /* CSS Reset e Configurações Globais   */
+      /* ---------------------------------- */
+      :root {
+        /* Paleta de Cores */
+        --green-primary: #0bbf72;
+        --green-secondary: #0aa65f;
+        --green-accent: #30e39a;
+        --green-gradient: linear-gradient(
+          135deg,
+          var(--green-primary),
+          var(--green-secondary)
+        );
+
+        --bg-light: #f6fbf8;
+        --bg-dark-base: #0f1714;
+        --text-dark: #0f1a13;
+        --text-light: #5b6e62;
+        --text-inverted: #ffffff;
+
+        --border-light: rgba(0, 0, 0, 0.1);
+        --border-premium: rgba(255, 255, 255, 0.2);
+
+        /* Tipografia */
+        --font-main: "Inter", sans-serif;
+
+        /* Layout */
+        --radius-sm: 8px;
+        --radius-md: 18px;
+        --radius-lg: 24px;
+        --container-width: 1200px;
+        --shadow-soft: 0 10px 30px rgba(15, 26, 19, 0.07);
+        --shadow-medium: 0 12px 40px rgba(15, 26, 19, 0.1);
+        --shadow-glow: 0 0 20px 0 rgba(11, 191, 114, 0.3);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background-color: var(--bg-light);
+        color: var(--text-light);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: var(--text-dark);
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 900;
+      }
+      h2 {
+        font-size: 2.5rem;
+      }
+      h3 {
+        font-size: 1.75rem;
+      }
+      h4 {
+        font-size: 1.25rem;
+      }
+
+      p {
+        margin-bottom: 1rem;
+      }
+      a {
+        color: var(--green-secondary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: var(--green-primary);
+      }
+
+      img,
+      svg {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .container {
+        width: 100%;
+        max-width: var(--container-width);
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      /* ---------------------------------- */
+      /* Componentes Reutilizáveis          */
+      /* ---------------------------------- */
+      .btn {
+        display: inline-block;
+        padding: 14px 28px;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        transform: translateZ(0); /* Fix para performance de transição */
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .btn-primary {
+        background: var(--green-gradient);
+        color: var(--text-inverted);
+        animation: pulse 1.8s infinite cubic-bezier(0.66, 0, 0, 1);
+      }
+      .btn-primary:hover {
+        background-size: 150% 150%;
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: var(--text-dark);
+        box-shadow: inset 0 0 0 2px var(--border-light);
+      }
+      .btn-secondary:hover {
+        background-color: rgba(15, 26, 19, 0.05);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      .badge-guarantee {
+        background-color: rgba(11, 191, 114, 0.1);
+        color: var(--green-secondary);
+        border: 1px solid rgba(11, 191, 114, 0.2);
+      }
+      .badge-popular {
+        background: var(--green-primary);
+        color: var(--text-inverted);
+        position: absolute;
+        top: -15px;
+        right: 20px;
+        font-size: 0.9rem;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(11, 191, 114, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(11, 191, 114, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(11, 191, 114, 0);
+        }
+      }
+
+      /* ---------------------------------- */
+      /* Header & Navegação                 */
+      /* ---------------------------------- */
+      .main-header {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        background-color: rgba(246, 251, 248, 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 1.25rem 0;
+        z-index: 1000;
+      }
+      .main-header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo-svg {
+        width: 110px;
+        height: auto;
+        fill: var(--text-dark);
+      }
+      .main-nav {
+        display: none; /* Mobile-first: escondido */
+      }
+      .main-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+      }
+      .main-nav a {
+        font-weight: 600;
+        color: var(--text-light);
+        font-size: 0.95rem;
+      }
+      .main-nav a:hover {
+        color: var(--text-dark);
+      }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .header-actions .badge-guarantee {
+        display: none; /* Escondido em mobile */
+      }
+      .header-actions .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+
+      /* ---------------------------------- */
+      /* Seção Herói                        */
+      /* ---------------------------------- */
+      .hero {
+        padding: 6rem 0;
+        text-align: center;
+      }
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .hero h1 {
+        margin-bottom: 1.5rem;
+      }
+      .hero .subheadline {
+        font-size: 1.25rem;
+        color: var(--text-light);
+        max-width: 700px;
+        margin: 0 auto 2.5rem;
+      }
+      .hero-ctas {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .hero-visual {
+        margin: 3.5rem auto 0;
+        max-width: 500px;
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--border-premium);
+        box-shadow: var(--shadow-soft);
+        padding: 1.5rem;
+        text-align: left;
+      }
+      .hero-visual-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      .hero-visual-header h4 {
+        font-size: 1.1rem;
+        color: var(--text-dark);
+      }
+      .hero-visual-header h4 .icon {
+        color: var(--green-primary);
+        margin-right: 0.5rem;
+      }
+      .hero-visual-chips {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .hero-visual-chips .chip {
+        background-color: rgba(15, 26, 19, 0.05);
+        color: var(--text-light);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      .hero-visual-data {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 1rem;
+      }
+      .data-point {
+        font-size: 1rem;
+        color: var(--text-light);
+      }
+      .data-point strong {
+        display: block;
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--text-dark);
+      }
+      .data-point.edge strong {
+        color: var(--green-secondary);
+      }
+      .progress-bar-container {
+        width: 100%;
+        height: 10px;
+        background-color: rgba(15, 26, 19, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        width: 0; /* Inicia em 0, animado via JS ou CSS */
+        background: var(--green-gradient);
+        border-radius: 10px;
+        animation: fill-bar 2s ease-out 0.5s forwards;
+      }
+      @keyframes fill-bar {
+        from {
+          width: 0%;
+        }
+        to {
+          width: 72%;
+        }
+      }
+
+      /* KPIs */
+      .kpis {
+        padding: 2rem 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .kpis .container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .kpi-item {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-light);
+      }
+      .kpi-item strong {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-right: 0.25rem;
+      }
+
+      /* ---------------------------------- */
+      /* Seção Método (Features)            */
+      /* ---------------------------------- */
+      .method {
+        padding: 6rem 0;
+        background-color: #fff;
+      }
+      .section-header {
+        text-align: center;
+        max-width: 650px;
+        margin: 0 auto 3.5rem;
+      }
+      .section-header h2 {
+        margin-bottom: 1rem;
+      }
+      .section-header p {
+        font-size: 1.15rem;
+        color: var(--text-light);
+      }
+      .method-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .method-card {
+        background-color: #fff;
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        border: 1px solid var(--border-light);
+        box-shadow: var(--shadow-soft);
+        transition: all 0.3s ease;
+      }
+      .method-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-medium);
+      }
+      .method-card .icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        line-height: 1;
+      }
+      .method-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .method-card p {
+        margin-bottom: 0;
+      }
+
+      /* ---------------------------------- */
+      /* Seção Provas (Carrossel)           */
+      /* ---------------------------------- */
+      .proof {
+        padding: 6rem 0;
+      }
+      .carousel-wrapper {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .carousel-container {
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+      }
+      .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+      .testimonial-card {
+        flex: 0 0 100%;
+        width: 100%;
+        background-color: #fff;
+        border-radius: var(--radius-lg);
+        padding: 2.5rem;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid var(--border-light);
+      }
+      .testimonial-card p.quote {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+      }
+      .testimonial-card .author {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-light);
+      }
+      .testimonial-card .author span {
+        font-weight: 800;
+        color: var(--text-dark);
+      }
+      .carousel-controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        left: 0;
+      }
+      .carousel-btn {
+        background-color: #fff;
+        border: 1px solid var(--border-light);
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+      .carousel-btn:hover {
+        background-color: var(--bg-light);
+        transform: scale(1.1);
+      }
+      .carousel-btn.prev {
+        transform: translate(-50%, -50%);
+      }
+      .carousel-btn.next {
+        transform: translate(50%, -50%);
+      }
+      .carousel-btn svg {
+        width: 20px;
+        height: 20px;
+        stroke: var(--text-dark);
+      }
+
+      /* ---------------------------------- */
+      /* Seção Comparativo                  */
+      /* ---------------------------------- */
+      .comparison {
+        padding: 6rem 0;
+        background-color: #fff;
+      }
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-soft);
+      }
+      .comparison-col {
+        padding: 2.5rem;
+      }
+      .comparison-col.without {
+        background-color: rgba(255, 100, 100, 0.02);
+        border-right: 0;
+      }
+      .comparison-col.with {
+        background-color: rgba(11, 191, 114, 0.02);
+      }
+      .comparison-col h3 {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+      }
+      .comparison-col h3 .icon {
+        font-size: 2rem;
+        margin-right: 0.75rem;
+        line-height: 1;
+      }
+      .comparison-col.without h3 .icon {
+        color: #e53e3e;
+      }
+      .comparison-col.with h3 .icon {
+        color: var(--green-primary);
+      }
+
+      .comparison-col ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      .comparison-col li {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        color: var(--text-light);
+      }
+      .comparison-col li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 4px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 1px solid var(--border-light);
+      }
+      .comparison-col.without li::before {
+        content: "×";
+        color: #e53e3e;
+        border-color: #e53e3e;
+        text-align: center;
+        font-weight: 800;
+        line-height: 19px;
+      }
+      .comparison-col.with li::before {
+        content: "✓";
+        color: var(--green-primary);
+        border-color: var(--green-primary);
+        text-align: center;
+        font-weight: 800;
+        line-height: 19px;
+      }
+
+      /* ---------------------------------- */
+      /* Seção CTA Urgência                 */
+      /* ---------------------------------- */
+      .cta-urgency {
+        padding: 6rem 0;
+      }
+      .cta-card {
+        background: var(--bg-dark-base);
+        border-radius: var(--radius-lg);
+        padding: 4rem;
+        color: var(--text-inverted);
+        text-align: center;
+        overflow: hidden;
+        position: relative;
+      }
+      .cta-card::before {
+        /* Efeito de brilho sutil */
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(11, 191, 114, 0.15) 0%,
+          rgba(11, 191, 114, 0) 60%
+        );
+        animation: rotate-glow 10s linear infinite;
+      }
+      @keyframes rotate-glow {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .cta-card-content {
+        position: relative;
+        z-index: 2;
+      }
+      .cta-card h2 {
+        color: var(--text-inverted);
+        font-size: 2.25rem;
+        margin-bottom: 1rem;
+      }
+      .cta-card p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.15rem;
+        max-width: 500px;
+        margin: 0 auto 2rem;
+      }
+      .countdown-timer {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+      }
+      .timer-segment {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-md);
+        padding: 1rem 1.5rem;
+        min-width: 80px;
+      }
+      .timer-number {
+        display: block;
+        font-size: 2.5rem;
+        font-weight: 800;
+        line-height: 1;
+      }
+      .timer-label {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .cta-card .btn {
+        font-size: 1.1rem;
+        padding: 16px 32px;
+      }
+      .cta-card .badge-guarantee {
+        margin-top: 1.5rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.8);
+        border: none;
+      }
+
+      /* ---------------------------------- */
+      /* Seção Planos (Pricing)             */
+      /* ---------------------------------- */
+      .pricing {
+        padding: 6rem 0;
+        background-color: #fff;
+      }
+      .pricing-toggle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+      .pricing-toggle-label {
+        font-weight: 600;
+        color: var(--text-light);
+      }
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 28px;
+      }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 28px;
+      }
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      input:checked + .toggle-slider {
+        background: var(--green-gradient);
+      }
+      input:focus + .toggle-slider {
+        box-shadow: 0 0 1px var(--green-primary);
+      }
+      input:checked + .toggle-slider:before {
+        transform: translateX(22px);
+      }
+      .toggle-annual-badge {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--green-secondary);
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        align-items: stretch;
+      }
+      .plan-card {
+        background-color: #fff;
+        border: 2px solid var(--border-light);
+        border-radius: var(--radius-lg);
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .plan-card.recommended {
+        border-color: var(--green-primary);
+        box-shadow: var(--shadow-glow);
+        transform: scale(1.03);
+      }
+      .plan-card h3 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+      }
+      .plan-card .plan-desc {
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+        min-height: 40px; /* Alinha altura */
+      }
+      .plan-price {
+        margin-bottom: 1.5rem;
+      }
+      .price-value {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: var(--text-dark);
+      }
+      .price-period {
+        font-size: 1rem;
+        color: var(--text-light);
+        font-weight: 600;
+      }
+      .plan-card ul {
+        list-style: none;
+        margin-bottom: 2rem;
+        flex-grow: 1; /* Empurra o botão para baixo */
+      }
+      .plan-card li {
+        position: relative;
+        padding-left: 28px;
+        margin-bottom: 0.75rem;
+      }
+      .plan-card li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 2px;
+        color: var(--green-primary);
+        font-weight: 800;
+      }
+      .plan-card .btn {
+        width: 100%;
+      }
+      /* Destaque do Pro */
+      .plan-card#plan-pro {
+        border-color: var(--green-primary);
+      }
+      .plan-card#plan-pro .btn {
+        background: var(--green-gradient);
+        color: var(--text-inverted);
+      }
+      .plan-card#plan-pro .btn:hover {
+        box-shadow: var(--shadow-medium);
+      }
+      .plan-card.recommended .btn {
+        background: var(--green-gradient);
+        color: var(--text-inverted);
+        box-shadow: var(--shadow-glow);
+      }
+
+      /* ---------------------------------- */
+      /* Seção FAQ (Acordeão)               */
+      /* ---------------------------------- */
+      .faq {
+        padding: 6rem 0;
+      }
+      .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--border-light);
+      }
+      .faq-item summary {
+        display: block;
+        padding: 1.5rem 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        cursor: pointer;
+        position: relative;
+        padding-right: 30px;
+      }
+      .faq-item summary::after {
+        content: "+";
+        position: absolute;
+        right: 0;
+        top: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: var(--green-primary);
+        transition: transform 0.3s ease;
+      }
+      .faq-item[open] summary::after {
+        transform: rotate(45deg);
+      }
+      .faq-item div {
+        padding-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+
+      /* ---------------------------------- */
+      /* Footer                             */
+      /* ---------------------------------- */
+      .main-footer {
+        padding: 4rem 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        margin-top: 2rem;
+      }
+      .main-footer .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+      }
+      .main-footer .logo-svg {
+        width: 120px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+        list-style: none;
+      }
+      .footer-links a {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-light);
+      }
+      .footer-legal {
+        font-size: 0.85rem;
+        color: #888;
+        max-width: 600px;
+      }
+      .footer-legal strong {
+        color: var(--text-light);
+      }
+
+      /* ---------------------------------- */
+      /* CTA Flutuante (Sticky)             */
+      /* ---------------------------------- */
+      .sticky-cta {
+        position: fixed;
+        bottom: -100%; /* Começa escondido */
+        left: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid var(--border-light);
+        padding: 1rem 1.5rem;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+        z-index: 900;
+        transition: bottom 0.5s ease-in-out;
+      }
+      .sticky-cta.visible {
+        bottom: 0;
+      }
+      .sticky-cta .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0;
+      }
+      .sticky-cta-text {
+        display: none; /* Esconde em telas pequenas */
+      }
+      .sticky-cta-text strong {
+        display: block;
+        color: var(--text-dark);
+        font-weight: 800;
+      }
+      .sticky-cta-text span {
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+      .sticky-cta-buttons {
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+      }
+      .sticky-cta-buttons .btn {
+        flex-grow: 1;
+        padding: 12px 16px;
+      }
+
+      /* ---------------------------------- */
+      /* Modal do Quiz                      */
+      /* ---------------------------------- */
+      .quiz-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(15, 26, 19, 0.5);
+        backdrop-filter: blur(8px);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      .quiz-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .quiz-content {
+        background-color: #fff;
+        border-radius: var(--radius-lg);
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 550px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        position: relative;
+        transform: scale(0.95);
+        transition: all 0.3s ease;
+      }
+      .quiz-modal.active .quiz-content {
+        transform: scale(1);
+      }
+      .quiz-close-btn {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.75rem;
+        color: var(--text-light);
+        line-height: 1;
+      }
+      .quiz-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .quiz-header h3 {
+        margin-bottom: 0.5rem;
+      }
+      .quiz-progress-bar {
+        width: 100%;
+        height: 8px;
+        background-color: var(--border-light);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 1rem;
+      }
+      .quiz-progress {
+        width: 0%; /* Atualizado via JS */
+        height: 100%;
+        background: var(--green-gradient);
+        transition: width 0.4s ease;
+      }
+
+      .quiz-step {
+        display: none;
+      }
+      .quiz-step.active {
+        display: block;
+        animation: fade-in 0.4s ease;
+      }
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .quiz-step h4 {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-dark);
+      }
+      .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .quiz-options label {
+        display: block;
+        padding: 1rem 1.25rem;
+        border: 2px solid var(--border-light);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--text-dark);
+        transition: all 0.3s ease;
+      }
+      .quiz-options label:hover {
+        border-color: var(--green-primary);
+      }
+      .quiz-options input[type="radio"] {
+        display: none;
+      }
+      .quiz-options input[type="radio"]:checked + label {
+        border-color: var(--green-primary);
+        background-color: rgba(11, 191, 114, 0.05);
+        box-shadow: 0 0 10px rgba(11, 191, 114, 0.2);
+      }
+      .quiz-navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+        border-top: 1px solid var(--border-light);
+        padding-top: 1.5rem;
+      }
+      .quiz-navigation .btn-prev {
+        background: none;
+        border: none;
+        color: var(--text-light);
+        font-weight: 600;
+        cursor: pointer;
+        padding: 0;
+      }
+      .quiz-navigation .btn-prev:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .quiz-navigation .btn-next,
+      .quiz-navigation .btn-finish {
+        min-width: 120px;
+      }
+      .btn-finish {
+        display: none; /* Mostrado no último passo */
+      }
+
+      /* Resultado do Quiz (dentro do modal) */
+      #quiz-result {
+        text-align: center;
+      }
+      #quiz-result h3 {
+        color: var(--green-secondary);
+      }
+      #quiz-result .result-card {
+        border: 2px solid var(--green-primary);
+        background-color: rgba(11, 191, 114, 0.05);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      #quiz-result .result-card h4 {
+        color: var(--text-dark);
+        font-size: 1.75rem;
+      }
+      #quiz-result .result-card p {
+        font-size: 1rem;
+        margin-bottom: 0;
+      }
+      #quiz-result .btn {
+        width: 100%;
+      }
+
+      /* ---------------------------------- */
+      /* Media Queries (Responsividade)     */
+      /* ---------------------------------- */
+
+      /* Tablet */
+      @media (min-width: 768px) {
+        h1 {
+          font-size: 4rem;
+        }
+        h2 {
+          font-size: 3rem;
+        }
+
+        .main-nav {
+          display: block;
+        }
+        .header-actions .badge-guarantee {
+          display: block;
+        }
+        .hero {
+          padding: 8rem 0;
+          text-align: left;
+        }
+        .hero .container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: center;
+          gap: 3rem;
+        }
+        .hero-content {
+          margin: 0;
+          max-width: none;
+        }
+        .hero-ctas {
+          justify-content: flex-start;
+        }
+        .hero-visual {
+          margin: 0;
+          max-width: none;
+        }
+        .kpis {
+          padding: 3rem 0;
+        }
+        .kpi-item {
+          font-size: 1.1rem;
+        }
+        .kpi-item strong {
+          font-size: 1.75rem;
+        }
+        .method-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .comparison-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .comparison-col.without {
+          border-right: 1px solid var(--border-light);
+        }
+        .pricing-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .sticky-cta .container {
+          padding: 0 1.5rem; /* Reset padding */
+        }
+        .sticky-cta-text {
+          display: block;
+        }
+        .sticky-cta-buttons {
+          width: auto;
+          flex-grow: 0;
+        }
+        .sticky-cta-buttons .btn {
+          flex-grow: 0;
+        }
+      }
+
+      /* Desktop */
+      @media (min-width: 1024px) {
+        h1 {
+          font-size: 4.5rem;
+        }
+        .hero {
+          padding: 9rem 0;
+        }
+        .hero .container {
+          gap: 4rem;
+        }
+        .hero-content {
+          max-width: 600px;
+        }
+        .kpis .container {
+          justify-content: center;
+          gap: 5rem;
+        }
+        .method,
+        .proof,
+        .comparison,
+        .pricing,
+        .faq,
+        .cta-urgency {
+          padding: 8rem 0;
+        }
+        .plan-card {
+          padding: 3rem;
+        }
+        .plan-card.recommended {
+          transform: scale(1.05);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width="300"
+      height="300"
+    >
+      <path
+        d="M0 0 C3.083164 0.80178741 3.083164 0.80178741 6.93359375 0.65625 C6.93359375 1.31625 6.93359375 1.97625 6.93359375 2.65625 C7.53187988 2.74189209 8.13016602 2.82753418 8.74658203 2.91577148 C17.68818238 4.35627972 26.18838799 7.02285202 34.80859375 9.71875 C36.39295911 10.20869974 37.97751582 10.69803109 39.56225586 11.18676758 C46.55950461 13.34805992 53.54902348 15.53397874 60.5368042 17.72566223 C63.22502511 18.56848575 65.91396932 19.40899107 68.60284424 20.24972534 C70.46479737 20.83393047 72.32494653 21.42387517 74.18505859 22.01391602 C75.85689209 22.53876587 75.85689209 22.53876587 77.5625 23.07421875 C79.01765015 23.53477661 79.01765015 23.53477661 80.50219727 24.00463867 C82.99701766 24.78568187 82.99701766 24.78568187 85.93359375 24.65625 C85.93359375 25.31625 85.93359375 25.97625 85.93359375 26.65625 C86.54552582 26.76690796 87.15745789 26.87756592 87.78793335 26.99157715 C93.81863639 28.13242941 99.57940473 29.659246 105.41015625 31.5625 C106.28636124 31.84334442 107.16256622 32.12418884 108.06532288 32.4135437 C110.89811311 33.32259006 113.72841049 34.23912264 116.55859375 35.15625 C120.51494052 36.43181839 124.47223923 37.70441622 128.4296875 38.9765625 C129.41155533 39.29275543 130.39342316 39.60894836 131.40504456 39.9347229 C137.36928558 41.85045276 143.34589306 43.71583752 149.34375 45.5234375 C194.6245643 59.19181611 194.6245643 59.19181611 205.93359375 77.65625 C206.371875 78.36910156 206.81015625 79.08195312 207.26171875 79.81640625 C214.22016946 92.37096039 215.53458134 106.00650777 215.45117188 120.05126953 C215.45661138 121.62070357 215.46374415 123.19013248 215.47241211 124.759552 C215.49045271 128.97549085 215.48365312 133.19103251 215.47089577 137.40697718 C215.4606418 141.86653226 215.47019763 146.32605733 215.47644043 150.78561401 C215.48369182 158.2850339 215.47420652 165.78429563 215.45507812 173.28369141 C215.43342576 181.87000961 215.44028574 190.45594599 215.46238375 199.04225457 C215.48074436 206.48250743 215.48299369 213.92264759 215.47262907 221.36291587 C215.46649144 225.77576076 215.46527896 230.18842867 215.47877502 234.60126114 C215.70098019 318.76735504 185.2496659 386.01817927 126.37109375 445.40625 C120.64276291 451.1351391 114.9212953 456.64596561 108.52734375 461.62890625 C106.02861401 463.58197965 103.61954046 465.60804554 101.21386719 467.6730957 C94.31532836 473.59383279 87.20939762 479.2068748 79.93359375 484.65625 C79.21365234 485.19685059 78.49371094 485.73745117 77.75195312 486.29443359 C67.99188676 493.60631594 58.16303085 500.75966757 47.91601562 507.37597656 C46.52406527 508.27491593 45.13498497 509.17830748 43.74804688 510.08496094 C17.72512738 527.0761365 -7.06742503 541.61333399 -39.06640625 535.65625 C-49.054078 533.26870894 -58.05874525 528.45106432 -67.06640625 523.65625 C-67.72157227 523.30933105 -68.37673828 522.96241211 -69.05175781 522.60498047 C-80.19822891 516.6540867 -90.64788874 509.78969428 -101.06640625 502.65625 C-102.18593109 501.89804338 -103.30569878 501.14019512 -104.42578125 500.3828125 C-119.85231458 489.85048391 -134.72004009 478.61411105 -149.06640625 466.65625 C-149.93604004 465.93526123 -149.93604004 465.93526123 -150.82324219 465.19970703 C-157.81084575 459.39939542 -164.59916361 453.42111156 -171.25390625 447.2421875 C-174.61065413 444.15584431 -178.05018293 441.17363195 -181.51953125 438.21484375 C-183.06640625 436.65625 -183.06640625 436.65625 -183.06640625 434.65625 C-184.05640625 434.32625 -185.04640625 433.99625 -186.06640625 433.65625 C-187.5390625 432.1953125 -187.5390625 432.1953125 -189.12890625 430.28125 C-191.89845476 427.00289091 -194.75384596 423.84737112 -197.69140625 420.71875 C-221.79611403 394.20357144 -241.19780805 361.83007431 -252.06640625 327.65625 C-252.72640625 327.65625 -253.38640625 327.65625 -254.06640625 327.65625 C-255.19140625 323.90625 -255.19140625 323.90625 -254.06640625 321.65625 C-254.34713515 319.71993292 -254.34713515 319.71993292 -254.95703125 317.53515625 C-255.17069336 316.69130371 -255.38435547 315.84745117 -255.60449219 314.97802734 C-255.83942383 314.06746582 -256.07435547 313.1569043 -256.31640625 312.21875 C-258.10177897 305.02401984 -259.67788177 297.85769988 -260.81640625 290.53125 C-260.93145508 289.7997876 -261.04650391 289.0683252 -261.16503906 288.31469727 C-262.87433158 276.8595972 -263.25742833 265.45142254 -263.3828125 253.890625 C-263.40349872 252.25099303 -263.42449704 250.61136498 -263.44578552 248.97174072 C-263.4895703 245.52903852 -263.53045734 242.08631847 -263.5690918 238.64355469 C-263.61725138 234.36053622 -263.67113362 230.07761628 -263.7270565 225.79469299 C-264.03902143 201.74808924 -264.15455974 177.70472732 -264.06640625 153.65625 C-264.0616629 152.34539429 -264.05691956 151.03453857 -264.05203247 149.68395996 C-264.02168311 142.89572635 -263.96077334 136.10882881 -263.85888672 129.32128906 C-263.8299909 127.16838421 -263.80913405 125.01535971 -263.79541016 122.86230469 C-263.65695469 102.02014115 -261.74366866 83.88574304 -246.65625 68.0703125 C-239.61080453 61.50306469 -232.37607818 56.79867942 -223.296875 53.75390625 C-222.56341354 53.50175858 -221.82995209 53.2496109 -221.07426453 52.98982239 C-212.56600686 50.09408984 -203.97664216 47.45874585 -195.37890625 44.84375 C-193.66285146 44.31883792 -191.94686957 43.79368747 -190.23095703 43.26831055 C-178.7547937 39.75919234 -167.26287077 36.30366277 -155.76367188 32.87084961 C-147.61856298 30.43531308 -139.49428226 27.93895449 -131.37890625 25.40625 C-71.81686878 6.84248501 -71.81686878 6.84248501 -48.06640625 0.65625 C-47.36386719 0.46853027 -46.66132813 0.28081055 -45.9375 0.08740234 C-30.8777028 -3.8459592 -15.07902559 -3.63106971 0 0 Z M87.5390625 164.83203125 C85.12699133 167.57275445 82.50676003 170.09191865 79.90625 172.65234375 C77.36021546 175.23871151 75.01337818 177.9716028 72.6484375 180.72265625 C70.97355076 182.61119597 69.23411788 184.38780648 67.43359375 186.15625 C65.02026658 188.52667357 62.76087522 190.96361308 60.55859375 193.53125 C57.9672517 196.5409253 55.26104592 199.36713616 52.43359375 202.15625 C49.14472877 205.40655207 46.06607951 208.74482316 43.0546875 212.25 C40.20187758 215.48633685 37.25671371 218.6318223 34.30859375 221.78125 C33.41370239 222.73898315 33.41370239 222.73898315 32.50073242 223.71606445 C29.38938791 227.0429277 26.26857631 230.36040978 23.13671875 233.66796875 C21.94398342 234.93487042 20.75127408 236.20179655 19.55859375 237.46875 C18.99317871 238.06123535 18.42776367 238.6537207 17.84521484 239.26416016 C14.90082712 241.9982831 14.90082712 241.9982831 13.93359375 245.65625 C13.27359375 245.65625 12.61359375 245.65625 11.93359375 245.65625 C10.53296648 247.00220571 10.53296648 247.00220571 9.05859375 248.84375 C5.81436987 252.66247186 2.46838275 256.36131507 -0.94140625 260.03125 C-4.53090614 263.90353204 -8.103253 267.78799476 -11.62890625 271.71875 C-16.73167089 277.40495234 -21.86889937 283.05650814 -27.06640625 288.65625 C-27.74058594 289.38585937 -28.41476562 290.11546875 -29.109375 290.8671875 C-34.23922541 296.23484554 -39.13375718 299.11245007 -46.63671875 299.71875 C-54.02065257 299.52880958 -60.66691534 296.61654787 -66.06640625 291.65625 C-67.80645183 289.79132077 -69.45759912 287.87464121 -71.09375 285.91796875 C-74.21374922 282.34078152 -77.63179004 279.07129845 -81.02734375 275.7578125 C-83.06640625 273.65625 -83.06640625 273.65625 -84.06640625 271.65625 C-84.72640625 271.65625 -85.38640625 271.65625 -86.06640625 271.65625 C-86.06640625 270.99625 -86.06640625 270.33625 -86.06640625 269.65625 C-87.69521327 267.93161939 -89.3547777 266.29553686 -91.06640625 264.65625 C-92.19685898 263.52170776 -93.32384524 262.38370471 -94.44799805 261.24291992 C-97.82006964 257.83538458 -101.19812655 254.43385272 -104.57836914 251.03442383 C-106.03587101 249.56678111 -107.49158497 248.09736081 -108.94555664 246.6262207 C-111.04760118 244.50005008 -113.15592241 242.38028729 -115.265625 240.26171875 C-115.91770432 239.59931686 -116.56978363 238.93691498 -117.24162292 238.25444031 C-117.84597672 237.64993546 -118.45033051 237.0454306 -119.07299805 236.42260742 C-119.60418747 235.88697678 -120.13537689 235.35134613 -120.68266296 234.79948425 C-122.02422758 233.44394051 -122.02422758 233.44394051 -124.06640625 233.65625 C-124.06640625 232.99625 -124.06640625 232.33625 -124.06640625 231.65625 C-126.08261319 230.22037562 -128.07432859 228.9264966 -130.19140625 227.65625 C-130.76117188 227.30046875 -131.3309375 226.9446875 -131.91796875 226.578125 C-141.37660685 220.81695452 -150.40057887 219.8280588 -161.13671875 221.86328125 C-170.31353193 224.34713868 -178.25399307 230.26970601 -183.02734375 238.4921875 C-186.92756095 246.61519626 -186.63759003 255.15663416 -184.00390625 263.65625 C-179.87281666 273.51184945 -170.71076548 281.40176117 -163.50195312 289.11621094 C-158.28826306 294.70940089 -153.24309828 300.39224301 -148.44140625 306.34375 C-145.38221644 310.12524852 -142.22613548 313.61619745 -138.734375 316.99609375 C-136.35750368 319.36183218 -134.1953941 321.89365001 -132.0078125 324.43359375 C-129.77836564 326.98601883 -127.48639243 329.47512514 -125.19140625 331.96875 C-121.8101174 335.66767507 -118.5798161 339.43697084 -115.44140625 343.34375 C-112.15704863 347.41450311 -108.70787394 351.12606051 -104.9609375 354.76953125 C-102.4713945 357.24880809 -100.19124272 359.87878737 -97.8984375 362.5390625 C-94.35303613 366.63630673 -90.70489716 370.64176241 -87.06640625 374.65625 C-86.62216309 375.14706055 -86.17791992 375.63787109 -85.72021484 376.14355469 C-82.52506995 379.6693091 -79.30094527 383.16660597 -76.06640625 386.65625 C-75.01453125 387.82607422 -75.01453125 387.82607422 -73.94140625 389.01953125 C-66.67929323 396.79409177 -58.83256337 400.32348817 -48.25390625 400.84375 C-36.68050018 400.58071804 -27.9600227 395.96344782 -19.93725586 387.58789062 C-15.08581929 382.30012717 -10.64357361 376.6879359 -6.26171875 371.00952148 C-2.98800719 366.77653361 0.42363782 362.69481715 3.93359375 358.65625 C9.34219611 352.4202349 14.44929786 345.98727269 19.51416016 339.47119141 C22.02386848 336.26218355 24.57293182 333.08474883 27.12109375 329.90625 C27.88377563 328.95419678 27.88377563 328.95419678 28.66186523 327.98291016 C30.80047391 325.31426664 32.94093009 322.64711292 35.08203125 319.98046875 C40.26946048 313.5120621 45.3936358 306.99513262 50.51025391 300.47070312 C52.81620253 297.53111304 55.12501136 294.59377179 57.43359375 291.65625 C58.3502748 290.48959464 59.26694145 289.32292796 60.18359375 288.15625 C62.01692708 285.82291667 63.85026042 283.48958333 65.68359375 281.15625 C66.36397705 280.2902417 66.36397705 280.2902417 67.05810547 279.40673828 C67.97622729 278.23830848 68.89452201 277.07001452 69.81298828 275.90185547 C72.08381744 273.01324494 74.35174321 270.12245452 76.61328125 267.2265625 C82.63701364 259.52161044 88.76564437 251.90849333 94.9453125 244.328125 C97.29080908 241.45012546 99.61960922 238.55969164 101.93359375 235.65625 C105.97059337 230.59289455 110.06026325 225.57287709 114.14746094 220.55004883 C117.17528037 216.82699479 120.19159409 213.09571757 123.18359375 209.34375 C133.4089382 196.53538534 133.4089382 196.53538534 138.7734375 190.38671875 C146.74808165 181.22362294 154.47579429 172.18543476 153.8125 159.3046875 C152.52109606 151.55626383 148.03423933 146.1394028 142.05859375 141.28125 C120.28864309 126.02155125 100.5396492 149.52022914 87.5390625 164.83203125 Z "
+        fill="#0C9164"
+        transform="translate(537.06640625,239.34375)"
+      />
+      <path
+        d="M0 0 C8.93244177 3.9215598 15.43995685 13.79008091 21.61328125 21.08984375 C27.61648528 28.16820305 33.77604882 35.05103154 40.13452148 41.8125 C44.62487529 46.5875286 48.98935065 51.43966357 53.22216797 56.4453125 C59.67958919 64.08079236 66.2791772 71.52873846 73.13452148 78.81030273 C76.55744633 82.44689211 79.90274078 86.12735416 83.1640625 89.91015625 C87.23129895 94.53988285 91.43729514 99.04392804 95.64746094 103.54345703 C96.77158313 104.75401894 97.87660549 105.98228323 98.9765625 107.21484375 C105.80012363 114.60434004 113.90343641 117.700169 123.8125 118.1875 C127.68768456 118.1577481 131.19644653 117.36500662 134.921875 116.33984375 C137.25102402 115.95894908 138.77197893 116.28241664 141 117 C130.26343299 121.8419812 120.60125189 122.36804367 109.2890625 118.56640625 C103.11413485 115.62561529 98.63282961 110.90080843 94 106 C93.44747559 105.4229834 92.89495117 104.8459668 92.32568359 104.25146484 C86.65373466 98.30903978 81.11873168 92.24349193 75.765625 86.01171875 C72.573305 82.37445149 69.24562927 78.85597886 65.94140625 75.3203125 C64 73 64 73 64 71 C63.34 71 62.68 71 62 71 C60.73376779 69.57008411 59.53996684 68.07605731 58.375 66.5625 C53.50961506 60.46497212 48.23541411 54.83044617 42.84912109 49.19165039 C39.0072174 45.16281002 35.27170668 41.0708317 31.62548828 36.86401367 C29.29896007 34.19608894 26.902222 31.60005205 24.5 29 C20.26121178 24.39296481 16.08616209 19.74286671 12 15 C11.51789063 14.44425293 11.03578125 13.88850586 10.5390625 13.31591797 C8.87749386 11.40044335 7.21964258 9.48180442 5.5625 7.5625 C5.01730713 6.93424316 4.47211426 6.30598633 3.91040039 5.65869141 C0 1.11432366 0 1.11432366 0 0 Z "
+        fill="#0F7544"
+        transform="translate(365,521)"
+      />
+      <path
+        d="M0 0 C0.66 0.33 1.32 0.66 2 1 C1.7884537 1.5974619 1.57690741 2.1949238 1.35895061 2.81049061 C-1.3963265 11.52210543 -1.44220549 19.92158432 -1.43237305 28.94604492 C-1.44140512 30.63238232 -1.45173585 32.31871317 -1.46325684 34.0050354 C-1.49068333 38.55177734 -1.50009172 43.09839422 -1.50611091 47.64520812 C-1.51553216 52.40848544 -1.54173844 57.17167072 -1.56611633 61.93489075 C-1.6096822 70.94078652 -1.63828994 79.94666433 -1.66143972 88.9526332 C-1.68854469 99.21151302 -1.73245283 109.47029978 -1.77772844 119.72911298 C-1.87043266 140.8193585 -1.94217834 161.90963188 -2 183 C-2.66 182.67 -3.32 182.34 -4 182 C-4.13358712 172.50366323 -4.26408945 163.00728963 -4.39115143 153.5108633 C-4.45030409 149.09633308 -4.51033574 144.68181934 -4.57275391 140.26733398 C-5.04164454 107.01367466 -5.29780325 73.75479755 -4.73754883 40.50024414 C-4.70342536 38.32682912 -4.67569662 36.15330654 -4.65356445 33.97973633 C-4.34862417 4.34862417 -4.34862417 4.34862417 0 0 Z "
+        fill="#0A6C3C"
+        transform="translate(278,328)"
+      />
+      <path
+        d="M0 0 C4.75977878 4.10325757 6.67458512 8.0889517 7.359375 14.21484375 C7.90494484 28.17233881 1.99239015 35.4276701 -6.81640625 45.35546875 C-9.87696203 48.81792505 -12.73831992 52.4062409 -15.5625 56.0625 C-19.1067697 60.63484937 -22.73641038 65.10636452 -26.5 69.5 C-30.80968242 74.53423099 -34.94334376 79.68253679 -39.015625 84.91015625 C-41.79800446 88.47955161 -44.62158118 92.00697218 -47.5 95.5 C-51.28422462 100.09608841 -54.96592861 104.76364628 -58.63061523 109.45483398 C-62.21958111 114.03642655 -65.87975476 118.55608933 -69.5625 123.0625 C-73.55148699 127.94679427 -77.48327597 132.86433212 -81.3125 137.875 C-84.35216064 141.85184801 -87.39959699 145.82022527 -90.5 149.75 C-91.44359375 150.94882812 -91.44359375 150.94882812 -92.40625 152.171875 C-94 154 -94 154 -96 155 C-94.46335293 150.1900219 -91.72971451 146.88633822 -88.5625 143.0625 C-87.47076796 141.72183132 -86.37963516 140.38067446 -85.2890625 139.0390625 C-84.73766602 138.36391602 -84.18626953 137.68876953 -83.61816406 136.99316406 C-81.18964843 134.00185422 -78.8115783 130.97207174 -76.4375 127.9375 C-75.98689209 127.36314209 -75.53628418 126.78878418 -75.07202148 126.19702148 C-72.81931438 123.32543437 -70.57073753 120.45064859 -68.32421875 117.57421875 C-59.83100074 106.71312915 -51.13199249 96.02412836 -42.375 85.375 C-39.13030334 81.4177656 -35.96066419 77.40883264 -32.8125 73.375 C-28.61365027 68.00235042 -24.33469496 62.70114237 -20 57.4375 C-19.11513916 56.36218018 -19.11513916 56.36218018 -18.21240234 55.26513672 C-15.45608844 51.92822623 -12.68035469 48.61330208 -9.83984375 45.34765625 C-2.41746125 36.80941088 4.29801268 28.76752426 5 17 C4.50189112 11.59809513 2.94651969 7.55371225 0 3 C0 2.01 0 1.02 0 0 Z "
+        fill="#107745"
+        transform="translate(685,384)"
+      />
+      <path
+        d="M0 0 C3.16164941 3.75002811 5.6825318 7.70205064 8.125 11.9375 C12.65073858 19.62726732 17.68065105 26.84208413 23 34 C23.58265625 34.78632812 24.1653125 35.57265625 24.765625 36.3828125 C31.70488119 45.51163982 39.17983317 54.49560923 47.44921875 62.44921875 C49.11790059 64.11790059 50.61045188 65.87814932 52.125 67.6875 C66.59461213 84.40794068 85.26608388 98.54619665 102.796875 111.90234375 C103.39935059 112.36165283 104.00182617 112.82096191 104.62255859 113.29418945 C105.76294054 114.16019976 106.90635267 115.02223907 108.05322266 115.87963867 C111.89158668 118.78317335 111.89158668 118.78317335 113 121 C109.72138693 120.39080901 107.73969598 119.27884438 105.12890625 117.2265625 C104.39615479 116.65446045 103.66340332 116.0823584 102.90844727 115.49291992 C102.13428467 114.87650635 101.36012207 114.26009277 100.5625 113.625 C99.76062256 112.99376221 98.95874512 112.36252441 98.13256836 111.7121582 C92.30113348 107.0976678 86.58646218 102.36051775 80.94921875 97.51171875 C78.13451003 95.11455622 75.26613097 92.80393371 72.375 90.5 C67.40170905 86.46465427 62.95275675 82.07800063 58.5078125 77.48046875 C56.03980896 74.94233558 56.03980896 74.94233558 53.1796875 72.80078125 C52.46039063 72.20652344 51.74109375 71.61226562 51 71 C51 70.34 51 69.68 51 69 C50.01 68.67 49.02 68.34 48 68 C46.52734375 66.5390625 46.52734375 66.5390625 44.9375 64.625 C42.16795149 61.34664091 39.31256029 58.19112112 36.375 55.0625 C0 15.05 0 15.05 0 0 Z "
+        fill="#117444"
+        transform="translate(303,605)"
+      />
+      <path
+        d="M0 0 C0.99 0.495 0.99 0.495 2 1 C0.89205078 2.38058594 0.89205078 2.38058594 -0.23828125 3.7890625 C-5.33594673 10.14779634 -10.41809851 16.5167522 -15.4375 22.9375 C-19.94156659 28.69492184 -24.53765607 34.37302205 -29.16162109 40.03442383 C-32.68466479 44.35597535 -36.1413002 48.72259315 -39.5625 53.125 C-46.86288351 62.49480459 -54.69073472 71.41932188 -62.546875 80.32421875 C-63.96464668 81.95922964 -65.32773226 83.62917306 -66.6875 85.3125 C-68.67603481 87.62349992 -70.47828844 89.31885896 -73 91 C-73.66 90.67 -74.32 90.34 -75 90 C-74.27039063 89.27683594 -73.54078125 88.55367187 -72.7890625 87.80859375 C-65.75509884 80.72537264 -59.34239418 73.29369102 -53.24755859 65.40454102 C-49.95255872 61.1581517 -46.52509745 57.05675894 -43 53 C-37.59146162 46.7639257 -32.48429922 40.33102698 -27.41943359 33.81494141 C-23.44618498 28.73459566 -19.38880156 23.72014353 -15.35302734 18.68945312 C-14.12406431 17.15491249 -12.89966402 15.61672048 -11.67578125 14.078125 C-7.87503565 9.30004482 -4.00637435 4.6073305 0 0 Z "
+        fill="#117A48"
+        transform="translate(583,545)"
+      />
+      <path
+        d="M0 0 C5.32586796 3.33119878 10.61979838 6.68508472 15.75 10.3125 C35.00631 23.87328169 54.99215035 36.37752159 77 45 C77 45.33 77 45.66 77 46 C71.88119055 46.38528673 68.20919361 45.14347188 63.6875 42.9375 C62.96820313 42.59170898 62.24890625 42.24591797 61.5078125 41.88964844 C45.44331954 33.9311538 30.17504882 24.21790261 15.703125 13.6640625 C11.27752636 10.43850864 6.6727727 7.52058967 2.02734375 4.62109375 C1.35832031 4.08613281 0.68929688 3.55117188 0 3 C0 2.01 0 1.02 0 0 Z "
+        fill="#117747"
+        transform="translate(417,726)"
+      />
+      <path
+        d="M0 0 C0.33 0 0.66 0 1 0 C0.45132576 5.98800037 -0.8201499 11.13284366 -2.9375 16.75 C-3.39721191 17.97674438 -3.39721191 17.97674438 -3.86621094 19.22827148 C-11.28009822 38.44912191 -21.76468229 56.24787457 -33.5 73.125 C-33.90927734 73.7236084 -34.31855469 74.3222168 -34.74023438 74.93896484 C-35.90625 76.5703125 -35.90625 76.5703125 -38 79 C-38.99 79 -39.98 79 -41 79 C-40.5781543 78.38817871 -40.15630859 77.77635742 -39.72167969 77.14599609 C-23.13767803 52.98086509 -8.63675116 28.15248695 0 0 Z "
+        fill="#117747"
+        transform="translate(739,563)"
+      />
+      <path
+        d="M0 0 C0 0.66 0 1.32 0 2 C-23.6445635 15.56479493 -43.4054944 24.28618123 -71 20 C-71 19.34 -71 18.68 -71 18 C-71.99 17.67 -72.98 17.34 -74 17 C-66.54681979 17.88427562 -66.54681979 17.88427562 -63.58203125 18.51171875 C-45.70064886 21.89322071 -28.30451642 14.51886909 -13 6 C-11.88882813 5.39027344 -10.77765625 4.78054688 -9.6328125 4.15234375 C-7.76141356 3.12428953 -5.89568029 2.08576403 -4.0390625 1.03125 C-2 0 -2 0 0 0 Z "
+        fill="#117444"
+        transform="translate(569,755)"
+      />
+      <path
+        d="M0 0 C5.61040077 0.51732267 9.876031 2.00371182 14.875 4.5625 C15.92772095 5.09931396 15.92772095 5.09931396 17.00170898 5.64697266 C32.12574569 13.63128895 39.64527037 25.98913074 44.62890625 42.0234375 C45.11720091 44.62424904 45.09397402 47.10618243 45.0625 49.75 C45.05347656 50.73484375 45.04445313 51.7196875 45.03515625 52.734375 C45.02355469 53.48203125 45.01195312 54.2296875 45 55 C42.90932964 51.45649091 42.40549561 48.03381912 41.75 44 C39.32105862 30.90504541 33.07167385 20.26551226 22.46875 12.03515625 C15.44293111 7.31339267 7.83336307 4.12190966 0 1 C0 0.67 0 0.34 0 0 Z "
+        fill="#127949"
+        transform="translate(706,293)"
+      />
+      <path
+        d="M0 0 C4.66616394 1.3331897 8.07707712 3.15395791 12 6 C12.57838623 6.40871338 13.15677246 6.81742676 13.75268555 7.23852539 C21.16410812 12.71355733 27.53611393 19.23348435 34.01416016 25.75341797 C36.01630677 27.76639498 38.02906641 29.76832259 40.04296875 31.76953125 C41.32095521 33.04883745 42.59832213 34.3287629 43.875 35.609375 C44.47594482 36.20627136 45.07688965 36.80316772 45.69604492 37.41815186 C49.88499689 41.65499068 49.88499689 41.65499068 51 45 C48.10326019 43.69001173 46.05188193 42.29513935 43.82373047 40.03491211 C43.22986542 39.4376683 42.63600037 38.8404245 42.0241394 38.2250824 C41.39484528 37.58232864 40.76555115 36.93957489 40.1171875 36.27734375 C39.13397018 35.28632408 39.13397018 35.28632408 38.13088989 34.27528381 C36.04078373 32.16738574 33.95749438 30.05291634 31.875 27.9375 C29.7845016 25.8194003 27.69256959 23.70276818 25.59768677 21.58900452 C24.29501617 20.27405934 22.99502781 18.95645058 21.69796753 17.63597107 C21.1104068 17.04187943 20.52284607 16.44778778 19.91748047 15.83569336 C19.40103973 15.3109996 18.884599 14.78630585 18.35250854 14.24571228 C16.99998436 12.8845757 16.99998436 12.8845757 15 12 C15 11.34 15 10.68 15 10 C14.28457031 9.74347656 13.56914062 9.48695313 12.83203125 9.22265625 C9.81303082 7.91928089 7.36653874 6.33862527 4.6875 4.4375 C3.80449219 3.81746094 2.92148437 3.19742187 2.01171875 2.55859375 C1.34785156 2.04425781 0.68398438 1.52992188 0 1 C0 0.67 0 0.34 0 0 Z "
+        fill="#127B4A"
+        transform="translate(398,461)"
+      />
+      <path
+        d="M0 0 C-1.12454773 3.37364319 -1.80358167 3.87107262 -4.5859375 5.8984375 C-5.34277832 6.45402344 -6.09961914 7.00960937 -6.87939453 7.58203125 C-7.70294434 8.17371094 -8.52649414 8.76539063 -9.375 9.375 C-10.22046387 9.98988281 -11.06592773 10.60476563 -11.93701172 11.23828125 C-20.11341476 17.15177519 -28.40530421 22.90520985 -36.79785156 28.5078125 C-38.35302887 29.56160892 -39.88998127 30.64254415 -41.41308594 31.7421875 C-42.20231445 32.30164063 -42.99154297 32.86109375 -43.8046875 33.4375 C-44.51351074 33.95183594 -45.22233398 34.46617187 -45.95263672 34.99609375 C-48 36 -48 36 -50.26220703 35.66015625 C-51.12241455 35.33337891 -51.12241455 35.33337891 -52 35 C-51.46745605 34.65855957 -50.93491211 34.31711914 -50.38623047 33.96533203 C-37.8527823 25.91447281 -25.52848432 17.71518251 -13.65625 8.71484375 C-12.9230957 8.15998291 -12.18994141 7.60512207 -11.43457031 7.03344727 C-10.00293783 5.94660334 -8.57504711 4.85480888 -7.15136719 3.75756836 C-2.21874743 0 -2.21874743 0 0 0 Z "
+        fill="#127747"
+        transform="translate(622,718)"
+      />
+      <path
+        d="M0 0 C5.03043332 4.22116155 9.79239333 8.60980879 14.4375 13.25 C15.07365234 13.87390625 15.70980469 14.4978125 16.36523438 15.140625 C17.26532227 16.0378125 17.26532227 16.0378125 18.18359375 16.953125 C18.72556396 17.49098633 19.26753418 18.02884766 19.82592773 18.58300781 C21 20 21 20 21 22 C21.5878125 22.28746094 22.175625 22.57492187 22.78125 22.87109375 C24.11607152 23.5502547 25.43579884 24.26246976 26.71875 25.03515625 C32.59896185 28.42659423 38.3030523 28.77676841 45 29 C42.27083319 31.72916681 40.86573535 31.79290703 37 32 C26.84699422 30.26821641 20.3676418 24.9499732 13.94140625 17.2265625 C10.8173457 13.64363591 7.36409832 10.39673251 3.94140625 7.1015625 C2 5 2 5 2 3 C1.34 3 0.68 3 0 3 C0 2.01 0 1.02 0 0 Z "
+        fill="#107847"
+        transform="translate(451,508)"
+      />
+      <path
+        d="M0 0 C0.33 0 0.66 0 1 0 C2.02399535 18.00525158 -1.89485581 35.81087091 -7 53 C-7.66 53 -8.32 53 -9 53 C-7.99985148 47.33575105 -6.95241547 41.68628856 -5.78125 36.0546875 C-3.28977374 24.06547731 -1.12417364 12.19812289 0 0 Z "
+        fill="#117746"
+        transform="translate(749,509)"
+      />
+      <path
+        d="M0 0 C0.33 0.99 0.66 1.98 1 3 C0.3503125 4.051875 0.3503125 4.051875 -0.3125 5.125 C-4.77313895 12.72460709 -4.41313545 20.68879336 -2.5390625 29.05859375 C-0.82193423 34.60023498 2.64746674 38.50254665 6.453125 42.80078125 C6.96359375 43.52652344 7.4740625 44.25226562 8 45 C7.67 45.99 7.34 46.98 7 48 C-2.33751128 37.32570826 -6.8959886 30.09942463 -6.328125 15.76171875 C-5.78837312 9.57384903 -4.16254443 4.75719363 0 0 Z "
+        fill="#138150"
+        transform="translate(356,472)"
+      />
+      <path
+        d="M0 0 C2.09693938 2.09693938 2.52406802 3.11616687 3.41015625 5.8671875 C3.67368896 6.66141113 3.93722168 7.45563477 4.20874023 8.27392578 C4.49048096 9.13228027 4.77222168 9.99063477 5.0625 10.875 C7.93727259 19.40794357 11.33961268 27.57276499 15.15454102 35.72607422 C15.52506592 36.52029785 15.89559082 37.31452148 16.27734375 38.1328125 C16.60984131 38.83293457 16.94233887 39.53305664 17.28491211 40.25439453 C18 42 18 42 18 44 C17.34 44 16.68 44 16 44 C10.20563883 32.24572448 5.34261455 20.36288079 1 8 C0.34 8 -0.32 8 -1 8 C-1.93065133 5.39417629 -2.14917407 4.35801776 -1.0625 1.75 C-0.711875 1.1725 -0.36125 0.595 0 0 Z "
+        fill="#117344"
+        transform="translate(284,559)"
+      />
+      <path
+        d="M0 0 C0 0.33 0 0.66 0 1 C-1.09054687 0.96519531 -1.09054687 0.96519531 -2.203125 0.9296875 C-13.87323742 0.72022394 -25.82753899 1.18054602 -34.74609375 9.66015625 C-35.15988281 10.10230469 -35.57367188 10.54445313 -36 11 C-36.99 10.67 -37.98 10.34 -39 10 C-27.433916 -0.7567192 -15.15441288 -4.32983225 0 0 Z "
+        fill="#117949"
+        transform="translate(397,460)"
+      />
+      <path
+        d="M0 0 C0.56074219 0.226875 1.12148438 0.45375 1.69921875 0.6875 C0.92578125 1.1721875 0.15234375 1.656875 -0.64453125 2.15625 C-11.99166761 9.45886251 -18.90200138 16.68978774 -25.30078125 28.6875 C-25.98828125 27.01953125 -25.98828125 27.01953125 -26.30078125 24.6875 C-22.69258315 16.93699554 -10.02914228 -1.3621925 0 0 Z "
+        fill="#13784A"
+        transform="translate(306.30078125,297.3125)"
+      />
+      <path
+        d="M0 0 C22.80127986 -0.41277905 22.80127986 -0.41277905 32 2 C32 2.66 32 3.32 32 4 C21.11 3.34 10.22 2.68 -1 2 C-0.67 1.34 -0.34 0.68 0 0 Z "
+        fill="#147B4C"
+        transform="translate(504,237)"
+      />
+      <path
+        d="M0 0 C0.66 0.33 1.32 0.66 2 1 C1.79503906 1.56203125 1.59007812 2.1240625 1.37890625 2.703125 C-1.69365647 12.28834458 -1.71664788 22.0240512 -2 32 C-2.99 32.495 -2.99 32.495 -4 33 C-4.5967029 10.6346912 -4.5967029 10.6346912 -1 1 C-0.67 0.67 -0.34 0.34 0 0 Z "
+        fill="#127648"
+        transform="translate(278,328)"
+      />
+      <path
+        d="M0 0 C0.99 0.66 1.98 1.32 3 2 C1.44152344 2.11214844 1.44152344 2.11214844 -0.1484375 2.2265625 C-8.15630523 2.93489165 -14.2703923 3.85942386 -20.984375 8.66015625 C-23.02234696 10.01485466 -24.6105417 10.56408531 -27 11 C-20.58166144 3.20630318 -10.16592241 -2.00617824 0 0 Z "
+        fill="#0E7646"
+        transform="translate(668,374)"
+      />
+      <path
+        d="M0 0 C6.79495631 0.460675 12.71832236 2.01400542 19.1796875 4.16015625 C21.98875395 5.14269938 21.98875395 5.14269938 25 5 C25 5.66 25 6.32 25 7 C25.99 7 26.98 7 28 7 C28 7.66 28 8.32 28 9 C21.69071903 8.37869771 16.03792431 6.50010374 10.0625 4.4375 C9.09248047 4.10814453 8.12246094 3.77878906 7.12304688 3.43945312 C4.74677616 2.6317552 2.37257031 1.81849052 0 1 C0 0.67 0 0.34 0 0 Z "
+        fill="#127C4E"
+        transform="translate(598,259)"
+      />
+      <path
+        d="M0 0 C-3.75484243 2.50322829 -7.5548515 3.70238044 -11.8125 5.125 C-12.60720703 5.40214844 -13.40191406 5.67929687 -14.22070312 5.96484375 C-18.62326571 7.44328909 -22.29058769 8.34884536 -27 8 C-26 6 -26 6 -24.14575195 5.22216797 C-21.53697243 4.43114771 -18.92837361 3.64232293 -16.3125 2.875 C-15.41337891 2.59785156 -14.51425781 2.32070313 -13.58789062 2.03515625 C-8.94382164 0.65181655 -4.90127517 -0.37389495 0 0 Z "
+        fill="#127B4B"
+        transform="translate(437,257)"
+      />
+      <path
+        d="M0 0 C0.66 0.33 1.32 0.66 2 1 C-3.40099277 6.01080698 -8.83916018 10.97013348 -14.5 15.6875 C-15.69109375 16.68330078 -15.69109375 16.68330078 -16.90625 17.69921875 C-17.5971875 18.12847656 -18.288125 18.55773437 -19 19 C-19.99 18.67 -20.98 18.34 -22 18 C-14.78816969 11.8359472 -7.56693908 5.72897455 0 0 Z "
+        fill="#137243"
+        transform="translate(645,698)"
+      />
+      <path
+        d="M0 0 C0.66 0 1.32 0 2 0 C-0.20672113 4.92542347 -3.83082841 8.3682222 -7.5 12.25 C-8.18964844 12.99507813 -8.87929688 13.74015625 -9.58984375 14.5078125 C-10.25113281 15.21164062 -10.91242187 15.91546875 -11.59375 16.640625 C-12.19896484 17.28547852 -12.80417969 17.93033203 -13.42773438 18.59472656 C-15 20 -15 20 -17 20 C-17 19.34 -17 18.68 -17 18 C-16.34 18 -15.68 18 -15 18 C-14.74863281 17.41992188 -14.49726562 16.83984375 -14.23828125 16.2421875 C-12.8455535 13.72033978 -11.27063548 12.10855921 -9.1875 10.125 C-6.66605115 7.68134539 -4.30817173 5.25014469 -2.125 2.5 C-1.42375 1.675 -0.7225 0.85 0 0 Z "
+        fill="#127A4B"
+        transform="translate(621,405)"
+      />
+      <path
+        d="M0 0 C0.33 0.99 0.66 1.98 1 3 C-1.44972396 5.67468954 -3.91115005 8.33832268 -6.375 11 C-7.42300781 12.1446875 -7.42300781 12.1446875 -8.4921875 13.3125 C-9.1625 14.034375 -9.8328125 14.75625 -10.5234375 15.5 C-11.14138184 16.1703125 -11.75932617 16.840625 -12.39599609 17.53125 C-14 19 -14 19 -16 19 C-14.501529 15.45815946 -12.45084115 13.27223438 -9.6875 10.625 C-6.20936358 7.23101204 -3.02197722 3.80184231 0 0 Z "
+        fill="#127D4D"
+        transform="translate(524,510)"
+      />
+      <path
+        d="M0 0 C0.33 0.99 0.66 1.98 1 3 C0.3503125 4.051875 0.3503125 4.051875 -0.3125 5.125 C-4.14829551 11.66005902 -4.41134492 19.57984781 -5 27 C-5.33 27 -5.66 27 -6 27 C-6.68079399 7.63519313 -6.68079399 7.63519313 0 0 Z "
+        fill="#107342"
+        transform="translate(356,472)"
+      />
+      <path
+        d="M0 0 C7.35012956 0.57648075 14.01424576 2.71046164 21 5 C21 5.66 21 6.32 21 7 C16.45672549 6.32304512 12.11029526 5.30013542 7.6875 4.0625 C6.45386719 3.72347656 5.22023438 3.38445312 3.94921875 3.03515625 C1 2 1 2 0 0 Z "
+        fill="#117849"
+        transform="translate(634,270)"
+      />
+      <path
+        d="M0 0 C0.33 0.99 0.66 1.98 1 3 C0.21753906 3.77085937 -0.56492187 4.54171875 -1.37109375 5.3359375 C-2.39336057 6.34882573 -3.41548881 7.36185384 -4.4375 8.375 C-5.2119043 9.13683594 -5.2119043 9.13683594 -6.00195312 9.9140625 C-8.857133 12.68568936 -8.857133 12.68568936 -11 16 C-11.99 15.67 -12.98 15.34 -14 15 C-9.38 10.05 -4.76 5.1 0 0 Z "
+        fill="#117443"
+        transform="translate(596,432)"
+      />
+      <path
+        d="M0 0 C-2.5843218 2.5843218 -4.89375577 3.10401163 -8.375 4.1875 C-9.51710938 4.55230469 -10.65921875 4.91710937 -11.8359375 5.29296875 C-14.81474653 5.95860385 -16.20871903 6.07938697 -19 5 C-12.7603015 1.6518691 -7.14027155 -0.34830593 0 0 Z "
+        fill="#107747"
+        transform="translate(336,288)"
+      />
+      <path
+        d="M0 0 C0.49628906 0.39832031 0.99257813 0.79664063 1.50390625 1.20703125 C5.85302633 4.59884975 9.8350929 7.06315984 15 9 C14.01 9.66 13.02 10.32 12 11 C7.29358659 8.87090822 3.717522 6.54049714 0 3 C0 2.01 0 1.02 0 0 Z "
+        fill="#127F4E"
+        transform="translate(464,629)"
+      />
+      <path
+        d="M0 0 C0.66 0.33 1.32 0.66 2 1 C-1.96 5.95 -5.92 10.9 -10 16 C-10.33 15.01 -10.66 14.02 -11 13 C-9.25705526 10.6318365 -7.51620995 8.49300095 -5.5625 6.3125 C-5.03333984 5.70599609 -4.50417969 5.09949219 -3.95898438 4.47460938 C-2.64838952 2.97509995 -1.32533582 1.48649666 0 0 Z "
+        fill="#0F7442"
+        transform="translate(583,545)"
+      />
+      <path
+        d="M0 0 C4.64511372 1.32717535 8.06725219 3.21430363 12 6 C13.12262848 6.75354515 14.24756298 7.50366845 15.375 8.25 C16.24125 8.8275 17.1075 9.405 18 10 C17.01 10.33 16.02 10.66 15 11 C12.50365392 9.64609936 10.22226154 8.26419589 7.875 6.6875 C6.90626953 6.06198242 6.90626953 6.06198242 5.91796875 5.42382812 C1.14267418 2.28534836 1.14267418 2.28534836 0 0 Z "
+        fill="#0F7242"
+        transform="translate(398,461)"
+      />
+      <path
+        d="M0 0 C-0.33 0.99 -0.66 1.98 -1 3 C-4.67566856 4.61729417 -9.07239675 4.06546005 -13 4 C-13 3.34 -13 2.68 -13 2 C-8.46298506 0.54815522 -4.81938524 -0.23509196 0 0 Z "
+        fill="#128354"
+        transform="translate(378,275)"
+      />
+      <path
+        d="M0 0 C2.82863975 5.3363834 4.37974335 10.92410633 4 17 C3.34 17 2.68 17 2 17 C0.30167391 11.16200408 -0.25287193 6.06892629 0 0 Z "
+        fill="#0E7243"
+        transform="translate(280,541)"
+      />
+      <path
+        d="M0 0 C5.27315333 0.4452885 10.01770224 1.08373163 15 3 C15 3.66 15 4.32 15 5 C4.44191344 3.07289294 4.44191344 3.07289294 0 1 C0 0.67 0 0.34 0 0 Z "
+        fill="#147C4E"
+        transform="translate(681,285)"
+      />
+      <path
+        d="M0 0 C0 0.99 0 1.98 0 3 C-0.66 3.66 -1.32 4.32 -2 5 C-2 5.99 -2 6.98 -2 8 C-2.5775 8.103125 -3.155 8.20625 -3.75 8.3125 C-6.32049158 9.09792798 -7.93657284 10.30504197 -10 12 C-9.45991831 8.17723432 -7.93135626 6.72563435 -5 4.3125 C-4.278125 3.71050781 -3.55625 3.10851562 -2.8125 2.48828125 C-2.214375 1.99714844 -1.61625 1.50601562 -1 1 C-0.67 0.67 -0.34 0.34 0 0 Z "
+        fill="#11996C"
+        transform="translate(601,425)"
+      />
+      <path
+        d="M0 0 C5.66442374 0.36504064 10.00703705 1.0554321 15 4 C11.50242203 5.16585932 10.38431934 4.75860292 6.9375 3.6875 C6.05964844 3.42324219 5.18179688 3.15898437 4.27734375 2.88671875 C2 2 2 2 0 0 Z "
+        fill="#0E7546"
+        transform="translate(563,248)"
+      />
+      <path
+        d="M0 0 C0.33 0.99 0.66 1.98 1 3 C-1.97 5.97 -4.94 8.94 -8 12 C-8.66 11.67 -9.32 11.34 -10 11 C-6.7 7.37 -3.4 3.74 0 0 Z "
+        fill="#117544"
+        transform="translate(677,667)"
+      />
+      <path
+        d="M0 0 C-1 2 -2 4 -3 6 C-3.66 6 -4.32 6 -5 6 C-5.268125 6.639375 -5.53625 7.27875 -5.8125 7.9375 C-7 10 -7 10 -10 11 C-8.64763423 8.06120516 -7.10057341 5.70767089 -5 3.25 C-4.484375 2.63640625 -3.96875 2.0228125 -3.4375 1.390625 C-2 0 -2 0 0 0 Z "
+        fill="#117747"
+        transform="translate(554,479)"
+      />
+      <path
+        d="M0 0 C4.60853797 0.72008406 8.67237409 2.31295939 13 4 C13 4.33 13 4.66 13 5 C7.76824163 5.38281159 4.62197306 4.21854707 0 2 C0 1.34 0 0.68 0 0 Z "
+        fill="#117040"
+        transform="translate(481,767)"
+      />
+      <path
+        d="M0 0 C3.34373475 0.55728913 6.03312999 1.35173889 9 3 C9 3.66 9 4.32 9 5 C9.99 5.33 10.98 5.66 12 6 C11.01 6.33 10.02 6.66 9 7 C6.96166576 5.7260411 4.96147874 4.38938077 3 3 C2.01 2.67 1.02 2.34 0 2 C0 1.34 0 0.68 0 0 Z "
+        fill="#117A49"
+        transform="translate(672,376)"
+      />
+      <path
+        d="M0 0 C2.6855594 2.6855594 3.06049974 5.37621328 4 9 C3.34 9.66 2.68 10.32 2 11 C-1.2 6.2 -1.2 6.2 -2 4 C-1.125 1.75 -1.125 1.75 0 0 Z "
+        fill="#147B4C"
+        transform="translate(284,559)"
+      />
+      <path
+        d="M0 0 C0.33 0.99 0.66 1.98 1 3 C-0.21484375 4.82421875 -0.21484375 4.82421875 -1.9375 6.6875 C-2.50339844 7.31011719 -3.06929687 7.93273437 -3.65234375 8.57421875 C-4.09707031 9.04472656 -4.54179688 9.51523437 -5 10 C-5.99 9.67 -6.98 9.34 -8 9 C-5.36 6.03 -2.72 3.06 0 0 Z "
+        fill="#0F7444"
+        transform="translate(524,510)"
+      />
+      <path
+        d="M0 0 C0.33 0.99 0.66 1.98 1 3 C-0.21484375 4.82421875 -0.21484375 4.82421875 -1.9375 6.6875 C-2.50339844 7.31011719 -3.06929687 7.93273437 -3.65234375 8.57421875 C-4.09707031 9.04472656 -4.54179688 9.51523437 -5 10 C-5.99 9.67 -6.98 9.34 -8 9 C-5.36 6.03 -2.72 3.06 0 0 Z "
+        fill="#0D7443"
+        transform="translate(534,499)"
+      />
+      <path
+        d="M0 0 C1.12894876 0.93274109 2.25300876 1.87140122 3.375 2.8125 C4.00148438 3.33457031 4.62796875 3.85664062 5.2734375 4.39453125 C7 6 7 6 9 9 C6.66471585 8.82701599 5.30822418 8.29774631 3.62109375 6.66796875 C0 2.42788462 0 2.42788462 0 0 Z "
+        fill="#117D4C"
+        transform="translate(444,608)"
+      />
+      <path
+        d="M0 0 C2.93200474 2.85276137 5.64315404 5.65079784 8 9 C4.21304827 8.4590069 2.37254028 6.96567536 0 4 C0 2.68 0 1.36 0 0 Z "
+        fill="#127D4D"
+        transform="translate(384,540)"
+      />
+      <path
+        d="M0 0 C3.59391114 1.33488128 6.75490696 2.96022723 10 5 C8.375 5.75 8.375 5.75 6 6 C2.75 4.1875 2.75 4.1875 0 2 C0 1.34 0 0.68 0 0 Z "
+        fill="#107040"
+        transform="translate(453,751)"
+      />
+      <path
+        d="M0 0 C1.8871875 0.0309375 1.8871875 0.0309375 3.8125 0.0625 C1.41486815 2.46013185 0.47976502 2.40530586 -2.8125 2.6875 C-3.62976563 2.76226562 -4.44703125 2.83703125 -5.2890625 2.9140625 C-5.91554688 2.96304688 -6.54203125 3.01203125 -7.1875 3.0625 C-7.1875 2.4025 -7.1875 1.7425 -7.1875 1.0625 C-4.43671116 0.14557039 -2.82801087 -0.04636083 0 0 Z "
+        fill="#11794A"
+        transform="translate(489.1875,240.9375)"
+      />
+      <path
+        d="M0 0 C-1.38009621 3.33523252 -2.84950652 5.18607951 -6 7 C-6.99 6.67 -7.98 6.34 -9 6 C-7.8803014 4.99406757 -6.7540588 3.9954151 -5.625 3 C-4.68527344 2.1646875 -4.68527344 2.1646875 -3.7265625 1.3125 C-2 0 -2 0 0 0 Z "
+        fill="#127546"
+        transform="translate(656,690)"
+      />
+      <path
+        d="M0 0 C-1.29299694 2.88437779 -2.65941363 4.87219421 -5 7 C-5.99 6.67 -6.98 6.34 -8 6 C-7.0479279 4.99403703 -6.08812654 3.99538437 -5.125 3 C-4.59132813 2.443125 -4.05765625 1.88625 -3.5078125 1.3125 C-2 0 -2 0 0 0 Z "
+        fill="#117645"
+        transform="translate(664,682)"
+      />
+      <path
+        d="M0 0 C0.33 0 0.66 0 1 0 C0.56179109 4.55737263 0.14958831 7.57653445 -3 11 C-4 8 -4 8 -3.22265625 5.95703125 C-2.83980469 5.24933594 -2.45695313 4.54164063 -2.0625 3.8125 C-1.68222656 3.09707031 -1.30195312 2.38164063 -0.91015625 1.64453125 C-0.60980469 1.10183594 -0.30945313 0.55914063 0 0 Z "
+        fill="#147D4D"
+        transform="translate(732,583)"
+      />
+      <path
+        d="M0 0 C-2.6224715 2.6224715 -4.35023127 2.64217954 -8 3 C-10.875 2.5625 -10.875 2.5625 -13 2 C-13 1.67 -13 1.34 -13 1 C-8.59085217 -0.10228696 -4.51617599 -0.07654536 0 0 Z "
+        fill="#147E4C"
+        transform="translate(496,537)"
+      />
+      <path
+        d="M0 0 C0.66 0 1.32 0 2 0 C0.55746343 3.36591866 -1.33264727 5.51047079 -4 8 C-4.66 7.67 -5.32 7.34 -6 7 C-5.04882866 5.8274869 -4.08882991 4.66212985 -3.125 3.5 C-2.59132813 2.8503125 -2.05765625 2.200625 -1.5078125 1.53125 C-0.76144531 0.77328125 -0.76144531 0.77328125 0 0 Z "
+        fill="#0F7442"
+        transform="translate(621,405)"
+      />
+      <path
+        d="M0 0 C3.3 0.33 6.6 0.66 10 1 C10 1.66 10 2.32 10 3 C2.25 2.25 2.25 2.25 0 0 Z "
+        fill="#0F7445"
+        transform="translate(545,243)"
+      />
+      <path
+        d="M0 0 C3.83736322 0.95934081 4.59660228 1.23609263 7 4 C6.67 4.99 6.34 5.98 6 7 C4.02 4.69 2.04 2.38 0 0 Z "
+        fill="#167F4F"
+        transform="translate(365,685)"
+      />
+      <path
+        d="M0 0 C0.99 0 1.98 0 3 0 C5.25 2.3125 5.25 2.3125 7 5 C6.67 5.99 6.34 6.98 6 8 C4.02 5.36 2.04 2.72 0 0 Z "
+        fill="#0F703F"
+        transform="translate(357,512)"
+      />
+      <path
+        d="M0 0 C-1.13474948 3.40424844 -1.96811304 4.21653709 -5 6 C-5.99 5.67 -6.98 5.34 -8 5 C-2.25 0 -2.25 0 0 0 Z "
+        fill="#107445"
+        transform="translate(622,718)"
+      />
+      <path
+        d="M0 0 C2.64 1.98 5.28 3.96 8 6 C7.01 6.33 6.02 6.66 5 7 C3.29115995 5.37660195 1.62553283 3.70680947 0 2 C0 1.34 0 0.68 0 0 Z "
+        fill="#0E6E3D"
+        transform="translate(372,690)"
+      />
+      <path
+        d="M0 0 C0.33 0.99 0.66 1.98 1 3 C-1.31 4.98 -3.62 6.96 -6 9 C-4.25618453 5.51236907 -2.47193291 2.96631949 0 0 Z "
+        fill="#0C9A6D"
+        transform="translate(581,550)"
+      />
+      <path
+        d="M0 0 C0.6875 1.8125 0.6875 1.8125 1 4 C-0.4375 5.75 -0.4375 5.75 -2 7 C-2.99 6.67 -3.98 6.34 -5 6 C-3.35 4.02 -1.7 2.04 0 0 Z "
+        fill="#12804F"
+        transform="translate(661,446)"
+      />
+      <path
+        d="M0 0 C2 4 2 4 1.125 7.25 C0.75375 8.1575 0.3825 9.065 0 10 C-0.66 10 -1.32 10 -2 10 C-1.34 6.7 -0.68 3.4 0 0 Z "
+        fill="#138456"
+        transform="translate(690,403)"
+      />
+      <path
+        d="M0 0 C3 1 3 1 3 1 Z "
+        fill="#1C9063"
+        transform="translate(432,741)"
+      />
+      <path d="" fill="#1F986D" transform="translate(0,0)" />
+      <path d="" fill="#1E996D" transform="translate(0,0)" />
+      <path
+        d="M0 0 C3 1 3 1 3 1 Z "
+        fill="#209A6D"
+        transform="translate(481,240)"
+      />
+      <path
+        d="M0 0 C2 1 2 1 2 1 Z "
+        fill="#1D8D63"
+        transform="translate(532,775)"
+      />
+      <path d="" fill="#1D9165" transform="translate(0,0)" />
+      <path
+        d="M0 0 C2 1 2 1 2 1 Z "
+        fill="#1C9B6F"
+        transform="translate(561,568)"
+      />
+      <path d="" fill="#1E976C" transform="translate(0,0)" />
+      <path
+        d="M0 0 C2 1 2 1 2 1 Z "
+        fill="#1F976B"
+        transform="translate(702,289)"
+      />
+      <path
+        d="M0 0 C2 1 2 1 2 1 Z "
+        fill="#1F9C6F"
+        transform="translate(401,264)"
+      />
+      <path d="" fill="#3D4E3D" transform="translate(0,0)" />
+      <path d="" fill="#1E9165" transform="translate(0,0)" />
+      <path d="" fill="#208E63" transform="translate(0,0)" />
+      <path d="" fill="#219163" transform="translate(0,0)" />
+      <path d="" fill="#1E8F63" transform="translate(0,0)" />
+      <path d="" fill="#1F9063" transform="translate(0,0)" />
+      <path d="" fill="#1B8C61" transform="translate(0,0)" />
+      <path d="" fill="#1C9066" transform="translate(0,0)" />
+      <path d="" fill="#209266" transform="translate(0,0)" />
+      <path d="" fill="#209064" transform="translate(0,0)" />
+      <path d="" fill="#1F9166" transform="translate(0,0)" />
+      <path d="" fill="#1C9365" transform="translate(0,0)" />
+      <path d="" fill="#1F9365" transform="translate(0,0)" />
+      <path d="" fill="#475143" transform="translate(0,0)" />
+      <path d="" fill="#1F9066" transform="translate(0,0)" />
+      <path d="" fill="#209265" transform="translate(0,0)" />
+      <path d="" fill="#1D9368" transform="translate(0,0)" />
+      <path d="" fill="#1D8E62" transform="translate(0,0)" />
+      <path d="" fill="#1F9366" transform="translate(0,0)" />
+      <path d="" fill="#1E9267" transform="translate(0,0)" />
+      <path d="" fill="#1E9364" transform="translate(0,0)" />
+      <path d="" fill="#1F9567" transform="translate(0,0)" />
+      <path d="" fill="#219569" transform="translate(0,0)" />
+      <path d="" fill="#229368" transform="translate(0,0)" />
+      <path d="" fill="#1F9063" transform="translate(0,0)" />
+      <path d="" fill="#229366" transform="translate(0,0)" />
+      <path d="" fill="#229266" transform="translate(0,0)" />
+      <path d="" fill="#1C996B" transform="translate(0,0)" />
+      <path d="" fill="#219468" transform="translate(0,0)" />
+      <path d="" fill="#1E956A" transform="translate(0,0)" />
+      <path d="" fill="#1E9668" transform="translate(0,0)" />
+      <path d="" fill="#1E9566" transform="translate(0,0)" />
+      <path d="" fill="#229E6F" transform="translate(0,0)" />
+      <path d="" fill="#209269" transform="translate(0,0)" />
+      <path d="" fill="#1F946A" transform="translate(0,0)" />
+      <path d="" fill="#219469" transform="translate(0,0)" />
+      <path d="" fill="#209266" transform="translate(0,0)" />
+      <path d="" fill="#219469" transform="translate(0,0)" />
+      <path d="" fill="#21976B" transform="translate(0,0)" />
+      <path d="" fill="#23996D" transform="translate(0,0)" />
+      <path d="" fill="#1E946A" transform="translate(0,0)" />
+      <path d="" fill="#19986B" transform="translate(0,0)" />
+      <path d="" fill="#19986B" transform="translate(0,0)" />
+      <path d="" fill="#1F946B" transform="translate(0,0)" />
+      <path d="" fill="#21986B" transform="translate(0,0)" />
+      <path d="" fill="#219A6B" transform="translate(0,0)" />
+      <path d="" fill="#1F9A6A" transform="translate(0,0)" />
+      <path d="" fill="#1F9B6C" transform="translate(0,0)" />
+      <path d="" fill="#21996D" transform="translate(0,0)" />
+      <path d="" fill="#1F9B6A" transform="translate(0,0)" />
+      <path d="" fill="#1C9A6A" transform="translate(0,0)" />
+      <path d="" fill="#1E966C" transform="translate(0,0)" />
+      <path d="" fill="#21986D" transform="translate(0,0)" />
+      <path d="" fill="#1F976B" transform="translate(0,0)" />
+      <path d="" fill="#1F9D6F" transform="translate(0,0)" />
+      <path d="" fill="#209B6D" transform="translate(0,0)" />
+      <path d="" fill="#1B986C" transform="translate(0,0)" />
+      <path d="" fill="#1A996B" transform="translate(0,0)" />
+      <path d="" fill="#1C9A6D" transform="translate(0,0)" />
+      <path d="" fill="#1D9B6E" transform="translate(0,0)" />
+      <path d="" fill="#1C986C" transform="translate(0,0)" />
+      <path d="" fill="#1D9B6F" transform="translate(0,0)" />
+      <path d="" fill="#1D9B70" transform="translate(0,0)" />
+      <path d="" fill="#1E9E6E" transform="translate(0,0)" />
+      <path d="" fill="#1F9F6F" transform="translate(0,0)" />
+      <path d="" fill="#1B986B" transform="translate(0,0)" />
+      <path d="" fill="#1F9D6E" transform="translate(0,0)" />
+      <path d="" fill="#1F9A6B" transform="translate(0,0)" />
+      <path d="" fill="#21976C" transform="translate(0,0)" />
+      <path d="" fill="#20976D" transform="translate(0,0)" />
+      <path d="" fill="#20986E" transform="translate(0,0)" />
+      <path d="" fill="#20976D" transform="translate(0,0)" />
+      <path d="" fill="#23956A" transform="translate(0,0)" />
+      <path d="" fill="#229468" transform="translate(0,0)" />
+      <path d="" fill="#20956D" transform="translate(0,0)" />
+      <path d="" fill="#219668" transform="translate(0,0)" />
+      <path d="" fill="#25986D" transform="translate(0,0)" />
+      <path d="" fill="#25976D" transform="translate(0,0)" />
+      <path d="" fill="#23986C" transform="translate(0,0)" />
+      <path d="" fill="#259B6F" transform="translate(0,0)" />
+      <path d="" fill="#1E9769" transform="translate(0,0)" />
+      <path d="" fill="#219A6C" transform="translate(0,0)" />
+      <path d="" fill="#22986E" transform="translate(0,0)" />
+      <path d="" fill="#21996B" transform="translate(0,0)" />
+      <path d="" fill="#239A6E" transform="translate(0,0)" />
+      <path d="" fill="#259D6E" transform="translate(0,0)" />
+      <path d="" fill="#219A70" transform="translate(0,0)" />
+      <path d="" fill="#249A71" transform="translate(0,0)" />
+      <path d="" fill="#239D70" transform="translate(0,0)" />
+      <path d="" fill="#1F9A6D" transform="translate(0,0)" />
+      <path d="" fill="#209A6B" transform="translate(0,0)" />
+      <path d="" fill="#20976A" transform="translate(0,0)" />
+      <path d="" fill="#209B6E" transform="translate(0,0)" />
+      <path d="" fill="#1F996D" transform="translate(0,0)" />
+      <path d="" fill="#249C6F" transform="translate(0,0)" />
+      <path d="" fill="#1E9469" transform="translate(0,0)" />
+      <path d="" fill="#1E9666" transform="translate(0,0)" />
+      <path d="" fill="#20996E" transform="translate(0,0)" />
+      <path d="" fill="#219B6E" transform="translate(0,0)" />
+      <path d="" fill="#21956C" transform="translate(0,0)" />
+      <path d="" fill="#22996D" transform="translate(0,0)" />
+      <path d="" fill="#269C6F" transform="translate(0,0)" />
+    </svg>
+
+    <header class="main-header">
+      <div class="container">
+        <a href="#" class="logo-link" aria-label="Valora - Página Inicial">
+          <svg class="logo-svg" viewBox="0 0 100 115">
+            <use xlink:href="#logo-valora"></use>
+          </svg>
+        </a>
+        <nav class="main-nav" aria-label="Navegação principal">
+          <ul>
+            <li><a href="#method">Método</a></li>
+            <li><a href="#pricing">Planos</a></li>
+            <li><a href="#proof">Provas</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <span class="badge badge-guarantee">Garantia 30 dias</span>
+          <button class="btn btn-secondary open-quiz-btn">Fazer Quiz</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h1>Transforme palpite em decisão — e decisão em disciplina.</h1>
+            <p class="subheadline">
+              O Valora ensina a identificar apostas de valor, define stakes
+              inteligentes e cria o hábito que separa sorte de processo — sem
+              promessas mágicas.
+            </p>
+            <div class="hero-ctas">
+              <a href="#pricing" class="btn btn-primary">Começar agora</a>
+              <button class="btn btn-secondary open-quiz-btn">
+                Descobrir meu plano
+              </button>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-visual-header">
+              <h4><span class="icon">🎯</span>Valor detectado</h4>
+              <span class="badge badge-guarantee" style="border: none"
+                >Edge +6,2%</span
+              >
+            </div>
+            <div class="hero-visual-chips">
+              <span class="chip">Premier League</span>
+              <span class="chip">Odd: 2.15</span>
+            </div>
+            <div class="hero-visual-data">
+              <div class="data-point">
+                Prob. Implícita
+                <strong>46.5%</strong>
+              </div>
+              <div class="data-point edge">
+                Prob. Estimada
+                <strong>52.7%</strong>
+              </div>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="kpis">
+        <div class="container">
+          <div class="kpi-item"><strong>10.000+</strong> interessadas</div>
+          <div class="kpi-item"><strong>4,9 ★</strong> no beta</div>
+          <div class="kpi-item"><strong>100%</strong> educativo</div>
+        </div>
+      </section>
+
+      <section class="method" id="method">
+        <div class="container">
+          <div class="section-header">
+            <h2>Aposte com método, não com emoção</h2>
+            <p>
+              O Valora é construído sobre três pilares que forçam a disciplina e
+              protegem sua banca no longo prazo.
+            </p>
+          </div>
+          <div class="method-grid">
+            <div class="method-card">
+              <div class="icon">📊</div>
+              <h3>Detector de Valor</h3>
+              <p>
+                Aprenda a encontrar "valor" (EV+) comparando sua análise de
+                probabilidade contra as odds implícitas oferecidas pelas casas.
+              </p>
+            </div>
+            <div class="method-card">
+              <div class="icon">🧮</div>
+              <h3>Stake Inteligente</h3>
+              <p>
+                Sugerimos o tamanho da sua stake (unidade) usando o critério de
+                Kelly Fracionado, ajustado ao seu perfil de risco e gestão de
+                banca.
+              </p>
+            </div>
+            <div class="method-card">
+              <div class="icon">🛑</div>
+              <h3>Anti-Tilt & Pausas</h3>
+              <p>
+                Defina limites de perdas (stop-loss) e pausas automáticas. A
+                ferramenta ajuda a identificar padrões de impulso e a manter a
+                mente fria.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof" id="proof">
+        <div class="container">
+          <div class="section-header">
+            <h2>O que os primeiros usuários dizem</h2>
+          </div>
+          <div class="carousel-wrapper">
+            <div class="carousel-container">
+              <div class="carousel-track">
+                <div class="testimonial-card">
+                  <p class="quote">
+                    "Mudei meu 'mindset' de apostador para analista. Só de ter
+                    que parar para preencher a análise de valor no app, eu já
+                    evitei umas 5 apostas por impulso hoje."
+                  </p>
+                  <p class="author"><span>Marcos T.</span> / Usuário Beta</p>
+                </div>
+                <div class="testimonial-card">
+                  <p class="quote">
+                    "O 'Stake Inteligente' é surreal. Eu estava quebrando a
+                    banca por usar 10% do total em cada aposta. O app me forçou
+                    a usar 1-2% e, pela primeira vez, meu mês fechou positivo."
+                  </p>
+                  <p class="author"><span>Juliana P.</span> / Usuária Pro</p>
+                </div>
+                <div class="testimonial-card">
+                  <p class="quote">
+                    "Uso o plano Creator para gerar relatórios para minha
+                    comunidade. A exportação em PDF é limpa e meus seguidores
+                    adoram o dashboard web que eu compartilho."
+                  </p>
+                  <p class="author"><span>Felipe R.</span> / Tipster</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-controls">
+              <button
+                class="carousel-btn prev"
+                aria-label="Depoimento anterior"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button class="carousel-btn next" aria-label="Próximo depoimento">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="comparison" id="comparison">
+        <div class="container">
+          <div class="section-header">
+            <h2>Pare de adivinhar. Comece a analisar.</h2>
+          </div>
+          <div class="comparison-grid">
+            <div class="comparison-col without">
+              <h3><span class="icon">🌪️</span>Sem o Valora</h3>
+              <ul>
+                <li>Apostas baseadas em "feeling" ou emoção</li>
+                <li>Gestão de banca "tudo ou nada" (All-in)</li>
+                <li>Tentar recuperar perdas (tilt)</li>
+                <li>Sem registro ou análise de performance</li>
+                <li>Perda de tempo e dinheiro a longo prazo</li>
+              </ul>
+            </div>
+            <div class="comparison-col with">
+              <h3><span class="icon">💡</span>Com o Valora</h3>
+              <ul>
+                <li>Decisões baseadas em probabilidade e valor (EV+)</li>
+                <li>Stake definida por método (Kelly Fracionado)</li>
+                <li>Disciplina forçada com pausas e limites</li>
+                <li>Métricas claras de ROI e histórico</li>
+                <li>Desenvolvimento de um processo sustentável</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-urgency" id="cta-beta">
+        <div class="container">
+          <div class="cta-card">
+            <div class="cta-card-content">
+              <h2>Entre no Beta — Vagas Limitadas</h2>
+              <p>
+                Nossos convites são liberados em lotes para manter a qualidade
+                do suporte. Garanta seu acesso antes que o contador zere.
+              </p>
+              <div class="countdown-timer">
+                <div class="timer-segment">
+                  <span class="timer-number" id="countdown-hours">22</span>
+                  <span class="timer-label">Horas</span>
+                </div>
+                <div class="timer-segment">
+                  <span class="timer-number" id="countdown-minutes">00</span>
+                  <span class="timer-label">Minutos</span>
+                </div>
+                <div class="timer-segment">
+                  <span class="timer-number" id="countdown-seconds">00</span>
+                  <span class="timer-label">Segundos</span>
+                </div>
+              </div>
+              <a href="#pricing" class="btn btn-primary">Garantir meu acesso</a>
+              <div class="badge badge-guarantee" style="border: none">
+                Garantia 30 dias • sem risco
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pricing" id="pricing">
+        <div class="container">
+          <div class="section-header">
+            <h2>Um plano para cada etapa da sua jornada</h2>
+          </div>
+
+          <div class="pricing-toggle">
+            <span class="pricing-toggle-label">Mensal</span>
+            <label class="toggle-switch" for="price-toggle">
+              <input
+                type="checkbox"
+                id="price-toggle"
+                role="switch"
+                aria-checked="false"
+              />
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="pricing-toggle-label">Anual</span>
+            <span class="badge toggle-annual-badge">2 meses grátis</span>
+          </div>
+
+          <div class="pricing-grid">
+            <div class="plan-card" id="plan-gratuito">
+              <h3>Gratuito</h3>
+              <p class="plan-desc">
+                Para quem está começando e quer aprender o básico do método.
+              </p>
+              <div class="plan-price">
+                <span class="price-value" data-monthly="R$ 0" data-yearly="R$ 0"
+                  >R$ 0</span
+                >
+                <span class="price-period">/mês</span>
+              </div>
+              <ul>
+                <li>3 análises de valor / dia</li>
+                <li>Educação de método básica</li>
+                <li>Histórico limitado (7 dias)</li>
+              </ul>
+              <button class="btn btn-secondary open-quiz-btn">
+                Descobrir meu plano
+              </button>
+            </div>
+
+            <div class="plan-card" id="plan-pro">
+              <span class="badge badge-popular">Mais Popular</span>
+              <h3>Pro</h3>
+              <p class="plan-desc">
+                Para quem busca eficiência, métricas e alertas para otimizar o
+                processo.
+              </p>
+              <div class="plan-price">
+                <span
+                  class="price-value"
+                  data-monthly="R$ 29,90"
+                  data-yearly="R$ 299"
+                  >R$ 29,90</span
+                >
+                <span class="price-period">/mês</span>
+              </div>
+              <ul>
+                <li>Análises de valor ilimitadas</li>
+                <li>Alertas de stake e anti-tilt</li>
+                <li>KPIs e ROI detalhados</li>
+                <li>Exportação de histórico (CSV)</li>
+              </ul>
+              <a href="#" class="btn btn-primary">Quero o Pro</a>
+            </div>
+
+            <div class="plan-card" id="plan-creator">
+              <h3>Creator</h3>
+              <p class="plan-desc">
+                Para tipsters e criadores que gerenciam grupos e comunidades.
+              </p>
+              <div class="plan-price">
+                <span
+                  class="price-value"
+                  data-monthly="R$ 69,90"
+                  data-yearly="R$ 699"
+                  >R$ 69,90</span
+                >
+                <span class="price-period">/mês</span>
+              </div>
+              <ul>
+                <li>Tudo do Pro</li>
+                <li>Dashboard web público</li>
+                <li>Relatórios em PDF/CSV</li>
+                <li>Branding customizado p/ grupos</li>
+                <li>Suporte prioritário</li>
+              </ul>
+              <a href="#" class="btn btn-secondary">Virar Creator</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq" id="faq">
+        <div class="container">
+          <div class="section-header">
+            <h2>Perguntas Frequentes</h2>
+          </div>
+          <div class="faq-container">
+            <details class="faq-item">
+              <summary>O Valora garante lucro?</summary>
+              <div>
+                <p>
+                  <strong>Não. Absolutamente não.</strong> O Valora é uma
+                  ferramenta 100% educacional focada em método, disciplina e
+                  gestão de banca. Não oferecemos "dicas prontas" nem garantias
+                  de ganho. Nosso objetivo é ensinar um processo de análise, e
+                  não prometer resultados.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary>Eu preciso apostar dinheiro dentro do app?</summary>
+              <div>
+                <p>
+                  Não. O Valora não processa apostas nem tem ligação com nenhuma
+                  casa de apostas. Ele funciona como um "diário de bordo"
+                  educacional, onde você registra suas análises (simuladas ou
+                  reais) para estudar seu desempenho e aplicar o método. O ato
+                  de apostar (ou não) é feito por você, em plataformas de sua
+                  escolha, e sob sua total responsabilidade.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary>Como funciona a Garantia de 30 dias?</summary>
+              <div>
+                <p>
+                  Ao assinar qualquer plano pago (Pro ou Creator) pela primeira
+                  vez, você tem 30 dias corridos para experimentar. Se por
+                  qualquer motivo não gostar ou achar que não é para você, basta
+                  enviar um e-mail para
+                  <a href="mailto:contato@valora.app">contato@valora.app</a> que
+                  reembolsamos 100% do valor pago, sem burocracia.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary>Posso cancelar quando quiser?</summary>
+              <div>
+                <p>
+                  Sim. Você pode cancelar sua assinatura (mensal ou anual) a
+                  qualquer momento. Você continuará com acesso até o fim do
+                  período já pago, e a renovação automática será interrompida.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <div class="container">
+        <a href="#" class="logo-link" aria-label="Valora - Voltar ao topo">
+          <svg class="logo-svg" viewBox="0 0 100 115">
+            <use xlink:href="#logo-valora"></use>
+          </svg>
+        </a>
+        <ul class="footer-links">
+          <li><a href="#">Política de Privacidade</a></li>
+          <li><a href="#">Termos de Uso</a></li>
+          <li><a href="mailto:contato@valora.app">contato@valora.app</a></li>
+        </ul>
+        <div class="footer-legal">
+          <strong>+18. Jogue com responsabilidade.</strong>
+          <br />
+          Este é um produto educacional e informativo. Não realizamos apostas,
+          não somos uma casa de apostas nem garantimos lucros. O Valora é uma
+          ferramenta de estudo para gestão de banca e análise de valor.
+          <br />
+          © 2025 Valora. Todos os direitos reservados.
+        </div>
+      </div>
+    </footer>
+
+    <div
+      class="quiz-modal"
+      id="quiz-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="quiz-title"
+    >
+      <div class="quiz-content">
+        <button class="quiz-close-btn" aria-label="Fechar quiz">&times;</button>
+
+        <form id="quiz-form">
+          <div class="quiz-header">
+            <h3 id="quiz-title">Descubra seu plano ideal</h3>
+            <p>
+              Responda 5 perguntas rápidas para recomendarmos o plano certo para
+              você.
+            </p>
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress" id="quiz-progress"></div>
+            </div>
+          </div>
+
+          <div class="quiz-step active" data-step="1">
+            <h4>1/5: Qual sua experiência com apostas esportivas?</h4>
+            <div class="quiz-options">
+              <input
+                type="radio"
+                name="experiencia"
+                id="exp0"
+                value="0"
+                required
+              />
+              <label for="exp0"
+                >Iniciante (Começando agora, focado em aprender)</label
+              >
+
+              <input type="radio" name="experiencia" id="exp1" value="1" />
+              <label for="exp1"
+                >Intermediário (Já aposto, busco consistência)</label
+              >
+
+              <input type="radio" name="experiencia" id="exp2" value="2" />
+              <label for="exp2"
+                >Avançado (Faço análises e busco ferramentas)</label
+              >
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="2">
+            <h4>2/5: Qual seu orçamento mensal para esta atividade?</h4>
+            <div class="quiz-options">
+              <input
+                type="radio"
+                name="orcamento"
+                id="orc0"
+                value="0"
+                required
+              />
+              <label for="orc0">Até R$ 100</label>
+
+              <input type="radio" name="orcamento" id="orc1" value="1" />
+              <label for="orc1">R$ 100 – R$ 300</label>
+
+              <input type="radio" name="orcamento" id="orc2" value="2" />
+              <label for="orc2">Mais de R$ 300</label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="3">
+            <h4>3/5: Qual sua tolerância a risco?</h4>
+            <div class="quiz-options">
+              <input type="radio" name="risco" id="risk0" value="0" required />
+              <label for="risk0"
+                >Baixa (Prefiro segurança e ganhos menores)</label
+              >
+
+              <input type="radio" name="risco" id="risk1" value="1" />
+              <label for="risk1"
+                >Média (Equilíbrio entre risco e retorno)</label
+              >
+
+              <input type="radio" name="risco" id="risk2" value="2" />
+              <label for="risk2"
+                >Alta (Busco retornos maiores, aceito variações)</label
+              >
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="4">
+            <h4>4/5: Com que frequência você analisa ou aposta?</h4>
+            <div class="quiz-options">
+              <input
+                type="radio"
+                name="frequencia"
+                id="freq0"
+                value="0"
+                required
+              />
+              <label for="freq0">Ocasionalmente (1–3 por semana)</label>
+
+              <input type="radio" name="frequencia" id="freq1" value="1" />
+              <label for="freq1">Regularmente (4–10 por semana)</label>
+
+              <input type="radio" name="frequencia" id="freq2" value="2" />
+              <label for="freq2">Diariamente (Intensivo)</label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="5">
+            <h4>5/5: Qual seu objetivo principal com o Valora?</h4>
+            <div class="quiz-options">
+              <input
+                type="radio"
+                name="objetivo"
+                id="obj0"
+                value="0"
+                required
+              />
+              <label for="obj0">Aprender o método e criar disciplina</label>
+
+              <input type="radio" name="objetivo" id="obj1" value="1" />
+              <label for="obj1">Otimizar meu tempo e ter métricas (ROI)</label>
+
+              <input type="radio" name="objetivo" id="obj2" value="2" />
+              <label for="obj2">Gerar relatórios e gerenciar grupos</label>
+            </div>
+          </div>
+
+          <div class="quiz-step" id="quiz-result">
+            <h3>Recomendação Pronta!</h3>
+            <div class="result-card">
+              <h4 id="result-plan-name">Plano Pro</h4>
+              <p id="result-plan-desc">
+                Você busca eficiência e métricas. Desbloqueie alertas e
+                ilimitado.
+              </p>
+            </div>
+            <a href="#pricing" class="btn btn-primary" id="go-to-plan-btn"
+              >Ver meu plano</a
+            >
+          </div>
+
+          <div class="quiz-navigation">
+            <button type="button" class="btn-prev" id="quiz-prev-btn" disabled>
+              Voltar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary btn-next"
+              id="quiz-next-btn"
+            >
+              Próximo
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary btn-finish"
+              id="quiz-finish-btn"
+            >
+              Ver Recomendação
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="sticky-cta" id="sticky-cta">
+      <div class="container">
+        <div class="sticky-cta-text">
+          <strong>Transforme palpite em decisão.</strong>
+          <span>Comece a usar o método Valora hoje.</span>
+        </div>
+        <div class="sticky-cta-buttons">
+          <button class="btn btn-secondary open-quiz-btn">
+            Descobrir plano
+          </button>
+          <a href="#pricing" class="btn btn-primary">Começar agora</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Seletor universal "seguro"
+        const $ = (selector, context = document) =>
+          context.querySelector(selector);
+        const $$ = (selector, context = document) =>
+          Array.from(context.querySelectorAll(selector));
+
+        /* ---------------------------------- */
+        /* 1. Scroll Suave para Âncoras       */
+        /* ---------------------------------- */
+        $$('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            const href = this.getAttribute("href");
+
+            // Ignora âncoras vazias ou que não são IDs
+            if (href === "#" || href.length <= 1) return;
+
+            const targetElement = $(href);
+            if (targetElement) {
+              e.preventDefault();
+              targetElement.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        });
+
+        /* ---------------------------------- */
+        /* 2. Toggle de Preços (Mensal/Anual) */
+        /* ---------------------------------- */
+        const priceToggle = $("#price-toggle");
+        if (priceToggle) {
+          priceToggle.addEventListener("change", () => {
+            const isAnnual = priceToggle.checked;
+            priceToggle.setAttribute("aria-checked", isAnnual);
+
+            $$(".price-value").forEach((priceEl) => {
+              const period = isAnnual ? "yearly" : "monthly";
+              priceEl.textContent = priceEl.dataset[period];
+            });
+
+            // Atualiza o "/mês" para "/ano" se for o caso (opcional)
+            $$(".price-period").forEach((periodEl) => {
+              periodEl.textContent = isAnnual ? "/ano" : "/mês";
+            });
+          });
+        }
+
+        /* ---------------------------------- */
+        /* 3. Contagem Regressiva (22h)     */
+        /* ---------------------------------- */
+        const countdownHoursEl = $("#countdown-hours");
+        const countdownMinutesEl = $("#countdown-minutes");
+        const countdownSecondsEl = $("#countdown-seconds");
+
+        if (countdownHoursEl) {
+          let totalSeconds = 22 * 60 * 60; // 22 horas
+
+          const updateCountdown = () => {
+            if (totalSeconds < 0) {
+              totalSeconds = 22 * 60 * 60; // Reinicia
+            }
+
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            countdownHoursEl.textContent = String(hours).padStart(2, "0");
+            countdownMinutesEl.textContent = String(minutes).padStart(2, "0");
+            countdownSecondsEl.textContent = String(seconds).padStart(2, "0");
+
+            totalSeconds--;
+          };
+
+          updateCountdown(); // Chama uma vez para não esperar 1s
+          setInterval(updateCountdown, 1000);
+        }
+
+        /* ---------------------------------- */
+        /* 4. Carrossel de Depoimentos        */
+        /* ---------------------------------- */
+        const track = $(".carousel-track");
+        if (track) {
+          const slides = $$(".testimonial-card");
+          const btnNext = $(".carousel-btn.next");
+          const btnPrev = $(".carousel-btn.prev");
+          let currentIndex = 0;
+          const slideCount = slides.length;
+
+          const showSlide = (index) => {
+            if (index < 0) index = slideCount - 1;
+            if (index >= slideCount) index = 0;
+
+            track.style.transform = `translateX(-${index * 100}%)`;
+            currentIndex = index;
+          };
+
+          btnNext.addEventListener("click", () => showSlide(currentIndex + 1));
+          btnPrev.addEventListener("click", () => showSlide(currentIndex - 1));
+
+          // Auto-slide
+          setInterval(() => {
+            showSlide(currentIndex + 1);
+          }, 5000); // Muda a cada 5 segundos
+        }
+
+        /* ---------------------------------- */
+        /* 5. CTA Flutuante (Sticky)          */
+        /* ---------------------------------- */
+        const stickyCTA = $("#sticky-cta");
+        const heroSection = $("#hero");
+        if (stickyCTA && heroSection) {
+          const heroHeight = heroSection.offsetHeight;
+
+          window.addEventListener(
+            "scroll",
+            () => {
+              if (window.scrollY > heroHeight) {
+                stickyCTA.classList.add("visible");
+              } else {
+                stickyCTA.classList.remove("visible");
+              }
+            },
+            { passive: true }
+          ); // Otimização de performance
+        }
+
+        /* ---------------------------------- */
+        /* 6. Lógica do Modal do Quiz         */
+        /* ---------------------------------- */
+        const quizModal = $("#quiz-modal");
+        const openQuizBtns = $$(".open-quiz-btn");
+        const closeQuizBtn = $(".quiz-close-btn");
+
+        const quizForm = $("#quiz-form");
+        const quizSteps = $$(".quiz-step");
+        const quizPrevBtn = $("#quiz-prev-btn");
+        const quizNextBtn = $("#quiz-next-btn");
+        const quizFinishBtn = $("#quiz-finish-btn");
+        const quizProgress = $("#quiz-progress");
+        const quizResultStep = $("#quiz-result");
+
+        const totalSteps = quizSteps.filter(
+          (s) => !s.id.includes("result")
+        ).length; // 5 passos
+        let currentStep = 1;
+
+        const openModal = () => quizModal.classList.add("active");
+        const closeModal = () => quizModal.classList.remove("active");
+
+        openQuizBtns.forEach((btn) => btn.addEventListener("click", openModal));
+        closeQuizBtn.addEventListener("click", closeModal);
+        // Fechar ao clicar fora
+        quizModal.addEventListener("click", (e) => {
+          if (e.target === quizModal) closeModal();
+        });
+
+        // --- Navegação do Quiz ---
+        const updateQuizView = () => {
+          quizSteps.forEach((step) => step.classList.remove("active"));
+          $(`.quiz-step[data-step="${currentStep}"]`)?.classList.add("active");
+
+          // Atualiza barra de progresso
+          const progressPercent = (currentStep / totalSteps) * 100;
+          quizProgress.style.width = `${progressPercent}%`;
+
+          // Atualiza botões
+          quizPrevBtn.disabled = currentStep === 1;
+          quizNextBtn.style.display =
+            currentStep === totalSteps ? "none" : "inline-block";
+          quizFinishBtn.style.display =
+            currentStep === totalSteps ? "inline-block" : "none";
+        };
+
+        quizNextBtn.addEventListener("click", () => {
+          // Validação simples
+          const currentInputs = $$(
+            `input[name="${
+              quizSteps[currentStep - 1].querySelector("input").name
+            }"]`
+          );
+          if ([...currentInputs].some((input) => input.checked)) {
+            if (currentStep < totalSteps) {
+              currentStep++;
+              updateQuizView();
+            }
+          } else {
+            alert("Por favor, selecione uma opção.");
+          }
+        });
+
+        quizPrevBtn.addEventListener("click", () => {
+          if (currentStep > 1) {
+            currentStep--;
+            updateQuizView();
+          }
+        });
+
+        // --- Lógica de Pontuação e Resultado ---
+        quizForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          // 1. Calcular Pontuação
+          let score = 0;
+          const formData = new FormData(quizForm);
+          formData.forEach((value) => {
+            score += parseInt(value);
+          });
+
+          // 2. Definir Recomendação
+          // (0-3 Gratuito, 4-7 Pro, 8-10 Creator)
+          let planId, planName, planDesc;
+
+          if (score <= 3) {
+            planId = "plan-gratuito";
+            planName = "Plano Gratuito";
+            planDesc =
+              "Você está começando. O plano gratuito é perfeito para focar na base e aprender o método.";
+          } else if (score <= 7) {
+            planId = "plan-pro";
+            planName = "Plano Pro";
+            planDesc =
+              "Você busca eficiência e métricas. O Pro desbloqueia alertas e análises ilimitadas.";
+          } else {
+            planId = "plan-creator";
+            planName = "Plano Creator";
+            planDesc =
+              "Perfil avançado. O Creator oferece relatórios, dashboard web e branding para grupos.";
+          }
+
+          // 3. Mostrar Resultado no Modal
+          $("#result-plan-name").textContent = planName;
+          $("#result-plan-desc").textContent = planDesc;
+
+          quizSteps.forEach((step) => step.classList.remove("active"));
+          quizResultStep.classList.add("active");
+
+          // Esconde navegação
+          $(".quiz-navigation").style.display = "none";
+          quizProgress.style.width = "100%"; // Completa a barra
+
+          // 4. Preparar botão "Ver meu plano"
+          const goToPlanBtn = $("#go-to-plan-btn");
+          goToPlanBtn.href = "#pricing";
+
+          goToPlanBtn.addEventListener("click", () => {
+            closeModal();
+
+            // 5. Destacar o plano na página
+            // Atraso para dar tempo da rolagem suave acontecer
+            setTimeout(() => {
+              $$(".plan-card").forEach((card) =>
+                card.classList.remove("recommended")
+              );
+              const recommendedCard = $(`#${planId}`);
+              if (recommendedCard) {
+                recommendedCard.classList.add("recommended");
+              }
+            }, 500); // 500ms é o tempo médio do scroll
+          });
+        });
+
+        // Inicializa a primeira view do quiz
+        if (quizModal) {
+          // Evita erro se o modal não existir
+          updateQuizView();
+        }
+      });
+    </script>
+  </body>
+</html>

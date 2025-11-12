@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valora App | Dashboard</title>
+
+    <meta
+      name="description"
+      content="Valora - Aposte com método, não com emoção. Ferramenta educativa para gestão de banca e análise de valor."
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="theme-color" content="#0BBF72" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>"
+    />
+
+    <style>
+      /* ---------------------------------- */
+      /* 1. Design System & CSS Reset       */
+      /* ---------------------------------- */
+      :root {
+        /* Paleta Light (Default) */
+        --color-primary: #0bbf72;
+        --color-primary-dark: #0aa65f;
+        --color-primary-accent: #30e39a;
+        --gradient-primary: linear-gradient(
+          135deg,
+          var(--color-primary),
+          var(--color-primary-dark)
+        );
+
+        --bg-body: #f6fbf8;
+        --bg-surface: #ffffff;
+        --bg-surface-glass: rgba(255, 255, 255, 0.7);
+        --border-color: #e7f3ec;
+        --border-color-glass: rgba(255, 255, 255, 0.3);
+
+        --text-primary: #0f1a13;
+        --text-secondary: #5b6e62;
+        --text-inverted: #ffffff;
+        --text-link: var(--color-primary-dark);
+
+        --color-red: #e53e3e;
+        --color-green: #38a169;
+        --color-yellow: #d69e2e;
+
+        --shadow-soft: 0 4px 12px rgba(15, 26, 19, 0.05);
+        --shadow-medium: 0 8px 24px rgba(15, 26, 19, 0.1);
+
+        /* Layout */
+        --font-main: "Inter", sans-serif;
+        --radius-sm: 8px;
+        --radius-md: 18px;
+        --radius-lg: 22px;
+        --header-height: 60px;
+        --tabs-height: 65px;
+        --container-padding: 1rem;
+      }
+
+      [data-theme="dark"] {
+        --bg-body: #0f1714;
+        --bg-surface: #121c18;
+        --bg-surface-glass: rgba(18, 28, 24, 0.7);
+        --border-color: #1a2925;
+        --border-color-glass: rgba(255, 255, 255, 0.1);
+
+        --text-primary: #e7f3ec;
+        --text-secondary: #8a9a93;
+        --text-inverted: #0f1a13;
+
+        --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.2);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background-color: var(--bg-body);
+        color: var(--text-secondary);
+        line-height: 1.6;
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* ---------------------------------- */
+      /* 2. App Shell (Layout)              */
+      /* ---------------------------------- */
+      .app-container {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* Sidebar/Drawer (Desktop) */
+      .app-sidebar {
+        display: none; /* Mobile-first */
+        width: 240px;
+        background-color: var(--bg-surface);
+        border-right: 1px solid var(--border-color);
+        padding: 1.5rem;
+        flex-shrink: 0;
+      }
+      .app-sidebar .logo-svg {
+        width: 120px;
+        margin-bottom: 2rem;
+        fill: var(--text-primary);
+      }
+      .sidebar-nav {
+        list-style: none;
+      }
+      .sidebar-nav a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 0.25rem;
+      }
+      .sidebar-nav a:hover {
+        background-color: var(--bg-body);
+        color: var(--text-primary);
+      }
+      .sidebar-nav a.active {
+        background: var(--gradient-primary);
+        color: var(--text-inverted);
+        font-weight: 800;
+        box-shadow: 0 4px 10px rgba(11, 191, 114, 0.2);
+      }
+      .sidebar-nav a .icon {
+        font-size: 1.25rem;
+      }
+
+      /* Content Area */
+      .app-main {
+        flex-grow: 1;
+        padding-top: var(--header-height);
+        padding-bottom: var(--tabs-height);
+      }
+
+      /* Header (Mobile) */
+      .app-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--header-height);
+        background: var(--bg-surface-glass);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 var(--container-padding);
+        z-index: 1000;
+      }
+      .app-bar .logo-svg {
+        width: 32px;
+        height: 32px;
+        fill: var(--color-primary);
+      }
+      .app-bar h1 {
+        font-size: 1.25rem;
+        color: var(--text-primary);
+      }
+      .app-bar-btn {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Bottom Tabs (Mobile) */
+      .bottom-tabs {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: var(--tabs-height);
+        background: var(--bg-surface-glass);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-around;
+        z-index: 1000;
+      }
+      .tab-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding-top: 0.5rem;
+        transition: color 0.2s ease;
+      }
+      .tab-item .icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.1rem;
+      }
+      .tab-item.active {
+        color: var(--color-primary);
+      }
+
+      /* Drawer (Mobile) */
+      .drawer-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(4px);
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+      .drawer-content {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 300px;
+        height: 100%;
+        background: var(--bg-surface);
+        z-index: 2001;
+        padding: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+      .drawer.active .drawer-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+      .drawer.active .drawer-content {
+        transform: translateX(300px);
+      }
+      .drawer-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .drawer-header .logo-svg {
+        width: 40px;
+        fill: var(--color-primary);
+      }
+      .drawer-header h3 {
+        color: var(--text-primary);
+      }
+      .drawer-nav {
+        list-style: none;
+      }
+      .drawer-nav a {
+        display: block;
+        padding: 0.75rem 0;
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-weight: 600;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .drawer-nav a:hover {
+        color: var(--text-primary);
+      }
+      .theme-toggle {
+        margin-top: 1.5rem;
+      }
+
+      /* Screens */
+      .screen {
+        display: none; /* Controlado por JS */
+        padding: var(--container-padding);
+        animation: fadeIn 0.4s ease;
+      }
+      .screen.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ---------------------------------- */
+      /* 3. Componentes                     */
+      /* ---------------------------------- */
+
+      /* Botões */
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        border: none;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        font-size: 1rem;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        transform: translateZ(0);
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+      .btn-primary {
+        background: var(--gradient-primary);
+        color: var(--text-inverted);
+      }
+      .btn-secondary {
+        background-color: var(--bg-body);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--text-link);
+        padding: 0;
+      }
+      .btn-ghost:hover {
+        box-shadow: none;
+        text-decoration: underline;
+      }
+      .btn-full {
+        width: 100%;
+      }
+      .btn-sm {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+      .btn-disabled,
+      .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+      }
+
+      /* Cards */
+      .card {
+        background: var(--bg-surface-glass);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--border-color-glass);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-soft);
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+      }
+      .card:hover {
+        box-shadow: var(--shadow-medium);
+      }
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      .card-header h3 {
+        color: var(--text-primary);
+        font-size: 1.25rem;
+      }
+
+      /* Forms */
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+      .form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        background-color: var(--bg-body);
+        color: var(--text-primary);
+        font-size: 1rem;
+      }
+      .form-control:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px rgba(11, 191, 114, 0.2);
+      }
+      /* Slider */
+      input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 8px;
+        background: var(--border-color);
+        border-radius: 5px;
+        outline: none;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: var(--color-primary);
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 0 5px rgba(11, 191, 114, 0.5);
+      }
+
+      /* Chips & Badges */
+      .chip-group {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .chip {
+        background-color: var(--bg-body);
+        color: var(--text-secondary);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: 1px solid var(--border-color);
+      }
+      .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: var(--radius-sm);
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      .badge-green {
+        background-color: rgba(56, 161, 105, 0.1);
+        color: var(--color-green);
+      }
+      .badge-red {
+        background-color: rgba(229, 62, 62, 0.1);
+        color: var(--color-red);
+      }
+      .badge-yellow {
+        background-color: rgba(214, 158, 46, 0.1);
+        color: var(--color-yellow);
+      }
+
+      /* Modais */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(8px);
+        z-index: 3000;
+        display: none; /* Controlado por JS */
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+      .modal-overlay.active {
+        display: flex;
+      }
+      .modal-content {
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        width: 100%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: var(--shadow-medium);
+        position: relative;
+        animation: modal-in 0.3s ease-out;
+      }
+      @keyframes modal-in {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .modal-close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.75rem;
+        color: var(--text-secondary);
+        cursor: pointer;
+      }
+      .modal-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .modal-header h2 {
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      /* Toasts */
+      .toast-container {
+        position: fixed;
+        top: var(--header-height);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 5000;
+        width: 100%;
+        max-width: 400px;
+        padding: 0 1rem;
+      }
+      .toast {
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        padding: 1rem;
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-medium);
+        margin-top: 1rem;
+        border-left: 4px solid var(--color-green);
+        animation: toast-in 0.3s ease, toast-out 0.3s ease 2.7s forwards;
+        font-weight: 600;
+      }
+      .toast.error {
+        border-color: var(--color-red);
+      }
+      .toast.warning {
+        border-color: var(--color-yellow);
+      }
+
+      @keyframes toast-in {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes toast-out {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+      }
+
+      /* ---------------------------------- */
+      /* 4. Estilos Específicos das Telas   */
+      /* ---------------------------------- */
+
+      /* --- Dashboard --- */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      .stat-item {
+        background-color: var(--bg-surface);
+        padding: 1rem;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+      }
+      .stat-item label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.25rem;
+        display: block;
+      }
+      .stat-item .value {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-primary);
+      }
+      .value.positive {
+        color: var(--color-green);
+      }
+      .value.negative {
+        color: var(--color-red);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background-color: var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 0.5rem;
+      }
+      .progress-bar-inner {
+        height: 100%;
+        width: 62%; /* Exemplo */
+        background: var(--gradient-primary);
+      }
+
+      /* --- Analisar --- */
+      .filter-bar {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        overflow-x: auto; /* Scroll horizontal em mobile */
+      }
+      .match-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+      }
+      .match-info {
+        font-weight: 600;
+        color: var(--text-primary);
+        line-height: 1.3;
+      }
+      .match-info span {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        font-weight: 400;
+      }
+      .match-odds {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .odd-box {
+        background-color: var(--bg-body);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem;
+        text-align: center;
+        min-width: 50px;
+      }
+      .odd-box span {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+      }
+      .odd-box strong {
+        display: block;
+        color: var(--text-primary);
+        font-weight: 800;
+      }
+
+      /* --- Histórico --- */
+      .chart-container {
+        width: 100%;
+        padding: 1rem;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        margin-bottom: 1rem;
+      }
+      .chart-svg {
+        width: 100%;
+        height: 200px;
+      }
+      .chart-svg .grid-line {
+        stroke: var(--border-color);
+        stroke-dasharray: 2, 2;
+      }
+      .chart-svg .chart-line {
+        stroke: var(--color-primary);
+        stroke-width: 2.5;
+        fill: none;
+      }
+      .chart-svg .tooltip-dot {
+        fill: var(--color-primary);
+        stroke: var(--bg-surface);
+        stroke-width: 2;
+        cursor: pointer;
+      }
+      /* Tooltip (será posicionado por JS) */
+      .chart-tooltip {
+        position: absolute;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-medium);
+        padding: 0.5rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.9rem;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+
+      .history-table-wrapper {
+        overflow-x: auto;
+        max-width: 100%;
+      }
+      .history-table {
+        width: 100%;
+        min-width: 600px;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+      }
+      .history-table th,
+      .history-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 0.9rem;
+      }
+      .history-table th {
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+      .history-table td {
+        color: var(--text-primary);
+      }
+
+      /* --- Perfil --- */
+      .profile-card {
+        text-align: center;
+        padding: 2rem;
+      }
+      .profile-card h2 {
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+      }
+      .profile-card p {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+      }
+
+      /* --- Quiz Steps --- */
+      .quiz-step {
+        display: none;
+      }
+      .quiz-step.active {
+        display: block;
+      }
+      .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .quiz-options input[type="radio"] {
+        display: none;
+      }
+      .quiz-options label {
+        display: block;
+        padding: 1rem;
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      .quiz-options input[type="radio"]:checked + label {
+        border-color: var(--color-primary);
+        background-color: var(--bg-body);
+      }
+      .quiz-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+      }
+
+      /* ---------------------------------- */
+      /* 5. Responsividade (Desktop)        */
+      /* ---------------------------------- */
+      @media (min-width: 768px) {
+        .app-bar {
+          display: none; /* Esconde AppBar em desktop */
+        }
+        .bottom-tabs {
+          display: none; /* Esconde Bottom Tabs em desktop */
+        }
+        .app-sidebar {
+          display: block; /* Mostra Sidebar */
+        }
+        .app-main {
+          padding-top: 2rem;
+          padding-bottom: 2rem;
+          padding-left: 2rem;
+          padding-right: 2rem;
+          max-width: 1200px;
+          margin-left: 240px; /* Offset da sidebar */
+        }
+        /* Ajusta o container principal */
+        .screen {
+          padding: 0;
+        }
+        .stats-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        /* Esconde drawer mobile */
+        .drawer-overlay,
+        .drawer-content {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="display: none">
+      <symbol id="logo-valora" viewBox="0 0 100 115">
+        <path
+          fill="currentColor"
+          d="M50 0L0 25V55.9C0 86.8 21.3 115 50 115C78.7 115 100 86.8 100 55.9V25L50 0Z"
+        />
+        <path
+          fill="#F6FBF8"
+          d="M72.5 40.6L44.8 68.3C44.1 69 43.1 69 42.4 68.3L27.5 53.4C26.8 52.7 26.8 51.7 27.5 51C28.2 50.3 29.2 50.3 29.9 51L43.6 64.7L70.1 38.2C70.8 37.5 71.8 37.5 72.5 38.2C73.2 38.9 73.2 40 72.5 40.6Z"
+        />
+      </symbol>
+    </svg>
+
+    <div class="app-container">
+      <aside class="app-sidebar">
+        <svg class="logo-svg" viewBox="0 0 100 115">
+          <use xlink:href="#logo-valora"></use>
+        </svg>
+        <nav>
+          <ul class="sidebar-nav">
+            <li>
+              <a
+                href="#dashboard"
+                class="nav-link active"
+                data-route="dashboard"
+                ><span class="icon">🏠</span> Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="#analisar" class="nav-link" data-route="analisar"
+                ><span class="icon">🔍</span> Analisar</a
+              >
+            </li>
+            <li>
+              <a href="#banca" class="nav-link" data-route="banca"
+                ><span class="icon">💰</span> Banca</a
+              >
+            </li>
+            <li>
+              <a href="#historico" class="nav-link" data-route="historico"
+                ><span class="icon">📊</span> Histórico</a
+              >
+            </li>
+            <li>
+              <a href="#perfil" class="nav-link" data-route="perfil"
+                ><span class="icon">👤</span> Perfil</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <ul
+          class="sidebar-nav"
+          style="
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+          "
+        >
+          <li>
+            <a href="#" id="sidebar-education-btn"
+              ><span class="icon">📚</span> Educação</a
+            >
+          </li>
+          <li>
+            <a href="#"><span class="icon">💬</span> Suporte</a>
+          </li>
+          <li class="theme-toggle">
+            <label class="form-group">Mudar Tema</label>
+            <select class="form-control" id="theme-select-desktop">
+              <option value="light">Claro</option>
+              <option value="dark">Escuro</option>
+            </select>
+          </li>
+        </ul>
+      </aside>
+
+      <div class="drawer" id="app-drawer">
+        <div class="drawer-overlay" id="drawer-overlay"></div>
+        <div class="drawer-content">
+          <div class="drawer-header">
+            <svg class="logo-svg" viewBox="0 0 100 115">
+              <use xlink:href="#logo-valora"></use>
+            </svg>
+            <h3>Valora</h3>
+          </div>
+          <nav>
+            <ul class="drawer-nav">
+              <li><a href="#" id="drawer-education-btn">📚 Educação</a></li>
+              <li><a href="#">💬 Suporte</a></li>
+              <li><a href="#">📜 Termos de Uso</a></li>
+            </ul>
+          </nav>
+          <div class="theme-toggle">
+            <label class="form-group"
+              >Mudar Tema
+              <select class="form-control" id="theme-select-mobile">
+                <option value="light">Claro</option>
+                <option value="dark">Escuro</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-main">
+        <header class="app-bar">
+          <button
+            class="app-bar-btn"
+            id="drawer-open-btn"
+            aria-label="Abrir menu"
+          >
+            ☰
+          </button>
+          <h1 id="app-bar-title">Dashboard</h1>
+          <a href="#perfil" aria-label="Ver perfil">
+            <svg class="logo-svg" viewBox="0 0 100 115">
+              <use xlink:href="#logo-valora"></use>
+            </svg>
+          </a>
+        </header>
+
+        <main id="app-content">
+          <section id="screen-dashboard" class="screen">
+            <h2>Olá, <span id="dash-username">Usuário</span>!</h2>
+            <p>Este é o resumo da sua jornada.</p>
+
+            <div class="stats-grid">
+              <div class="stat-item">
+                <label>Banca Atual</label>
+                <span class="value" id="dash-banca">R$ 0,00</span>
+              </div>
+              <div class="stat-item">
+                <label>Exposição Hoje</label>
+                <span class="value" id="dash-exposicao">R$ 0,00</span>
+              </div>
+              <div class="stat-item">
+                <label>ROI (30d)</label>
+                <span class="value positive" id="dash-roi">+0.0%</span>
+              </div>
+              <div class="stat-item">
+                <label>Dias em Tilt (7d)</label>
+                <span class="value negative" id="dash-tilt">0/7</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>🎯 Valor Detectado (Exemplo)</h3>
+                <span class="badge badge-green">Edge +6.2%</span>
+              </div>
+              <p><strong>Premier League:</strong> Man. City vs. Liverpool</p>
+              <div
+                class="match-odds"
+                style="justify-content: space-between; margin-bottom: 1rem"
+              >
+                <div class="odd-box">
+                  <span>CASA</span><strong>1.85</strong>
+                </div>
+                <div class="odd-box">
+                  <span>EMPATE</span><strong>3.50</strong>
+                </div>
+                <div class="odd-box">
+                  <span>FORA</span><strong>4.20</strong>
+                </div>
+              </div>
+              <label>Probabilidade Estimada (Liverpool)</label>
+              <div class="progress-bar">
+                <div class="progress-bar-inner"></div>
+              </div>
+            </div>
+
+            <div class="chip-group">
+              <a
+                href="#analisar"
+                class="chip"
+                style="text-decoration: none; color: var(--text-link)"
+                >🔍 Iniciar Análise</a
+              >
+              <a
+                href="#"
+                class="chip"
+                style="text-decoration: none; color: var(--text-link)"
+                >➕ Adicionar Jogo Manual</a
+              >
+              <a
+                href="#"
+                class="chip"
+                id="dash-education-btn"
+                style="text-decoration: none; color: var(--text-link)"
+                >📚 Ver Educação</a
+              >
+            </div>
+          </section>
+
+          <section id="screen-analisar" class="screen">
+            <div class="filter-bar">
+              <select class="form-control" style="width: auto">
+                <option>Todas as Ligas</option>
+                <option>Premier League</option>
+                <option>La Liga</option>
+              </select>
+              <input type="date" class="form-control" style="width: auto" />
+              <select class="form-control" style="width: auto">
+                <option>Qualquer Valor</option>
+                <option>Valor > 5%</option>
+              </select>
+            </div>
+
+            <div id="analisar-lista"></div>
+          </section>
+
+          <section id="screen-banca" class="screen">
+            <div class="card">
+              <div class="card-header">
+                <h3>Gestão de Banca</h3>
+              </div>
+              <div class="form-group">
+                <label for="banca-saldo">Saldo Atual</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="banca-saldo"
+                  value="1000"
+                />
+              </div>
+              <div class="form-group">
+                <label for="banca-stake">Stake Base (Unidade)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="banca-stake"
+                  value="10"
+                />
+              </div>
+              <button class="btn btn-primary btn-full" id="banca-save-btn">
+                Salvar Alterações
+              </button>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>🛑 Regras Anti-Tilt</h3>
+              </div>
+              <div class="form-group">
+                <label for="banca-stoploss">Stop-Loss Diário (em stakes)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="banca-stoploss"
+                  value="3"
+                />
+              </div>
+              <div class="form-group">
+                <label for="banca-maxloss-row">Perdas Seguidas (máx.)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="banca-maxloss-row"
+                  value="3"
+                />
+              </div>
+
+              <div class="stat-item" style="margin-bottom: 1rem">
+                <label>Status da Pausa</label>
+                <span class="value" id="banca-pause-status">Inativa</span>
+              </div>
+
+              <button class="btn btn-secondary btn-full" id="banca-pause-btn">
+                Ativar Pausa (12h)
+              </button>
+              <p
+                style="font-size: 0.8rem; text-align: center; margin-top: 1rem"
+              >
+                O app sugerirá a pausa se você atingir seus limites.
+              </p>
+            </div>
+          </section>
+
+          <section id="screen-historico" class="screen">
+            <div class="chart-container">
+              <h3>Evolução da Banca</h3>
+              <div class="chart-svg-container" style="position: relative">
+                <svg
+                  class="chart-svg"
+                  id="banca-chart-svg"
+                  viewBox="0 0 300 100"
+                  preserveAspectRatio="none"
+                ></svg>
+                <div class="chart-tooltip" id="chart-tooltip"></div>
+              </div>
+            </div>
+
+            <div class="filter-bar" style="justify-content: space-between">
+              <h3>Registros</h3>
+              <div>
+                <button class="btn btn-secondary btn-sm" id="export-csv-btn">
+                  Exportar CSV
+                </button>
+                <button
+                  class="btn btn-ghost btn-sm"
+                  id="clear-history-btn"
+                  style="color: var(--color-red)"
+                >
+                  Limpar
+                </button>
+              </div>
+            </div>
+
+            <div class="history-table-wrapper card">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Evento</th>
+                    <th>Odd</th>
+                    <th>Stake</th>
+                    <th>Resultado</th>
+                    <th>P/L</th>
+                  </tr>
+                </thead>
+                <tbody id="history-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="screen-perfil" class="screen">
+            <div class="card profile-card">
+              <h2 id="perfil-name">Iniciante</h2>
+              <p>Plano Atual: <strong id="perfil-plan">Gratuito</strong></p>
+              <button class="btn btn-secondary" id="perfil-redo-quiz">
+                Refazer Quiz
+              </button>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Preferências</h3>
+              </div>
+              <div class="form-group">
+                <label for="perfil-odds">Formato de Odds</label>
+                <select class="form-control" id="perfil-odds">
+                  <option value="decimal">Decimal (ex: 1.85)</option>
+                  <option value="american">Americano (ex: -110)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="perfil-currency">Moeda</label>
+                <select class="form-control" id="perfil-currency">
+                  <option value="BRL">BRL (R$)</option>
+                  <option value="USD">USD ($)</option>
+                </select>
+              </div>
+              <button class="btn btn-primary btn-full" id="perfil-save-prefs">
+                Salvar Preferências
+              </button>
+            </div>
+
+            <div class="card" style="border-color: var(--color-primary-accent)">
+              <div class="card-header">
+                <h3>Upgrade para o PRO</h3>
+              </div>
+              <p>
+                Desbloqueie análises ilimitadas, alertas anti-tilt avançados e
+                KPIs detalhados.
+              </p>
+              <button class="btn btn-primary btn-full" id="perfil-upgrade-btn">
+                Ver Planos
+              </button>
+            </div>
+          </section>
+        </main>
+
+        <nav class="bottom-tabs">
+          <a
+            href="#dashboard"
+            class="tab-item nav-link active"
+            data-route="dashboard"
+          >
+            <span class="icon">🏠</span> Dashboard
+          </a>
+          <a href="#analisar" class="tab-item nav-link" data-route="analisar">
+            <span class="icon">🔍</span> Analisar
+          </a>
+          <a href="#banca" class="tab-item nav-link" data-route="banca">
+            <span class="icon">💰</span> Banca
+          </a>
+          <a href="#historico" class="tab-item nav-link" data-route="historico">
+            <span class="icon">📊</span> Histórico
+          </a>
+          <a href="#perfil" class="tab-item nav-link" data-route="perfil">
+            <span class="icon">👤</span> Perfil
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-quiz">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Bem-vindo ao Valora!</h2>
+          <p>Vamos configurar seu perfil (5 passos).</p>
+        </div>
+
+        <form id="quiz-form">
+          <div class="quiz-step active" data-step="1">
+            <h4>1/5: Sua experiência?</h4>
+            <div class="quiz-options">
+              <input
+                type="radio"
+                name="experiencia"
+                id="exp0"
+                value="0"
+                required
+              /><label for="exp0">Iniciante (0-6 meses)</label>
+              <input
+                type="radio"
+                name="experiencia"
+                id="exp1"
+                value="1"
+              /><label for="exp1">Intermediário (6m - 2 anos)</label>
+              <input
+                type="radio"
+                name="experiencia"
+                id="exp2"
+                value="2"
+              /><label for="exp2">Avançado (+2 anos)</label>
+            </div>
+          </div>
+          <div class="quiz-step" data-step="2">
+            <h4>2/5: Orçamento mensal?</h4>
+            <div class="quiz-options">
+              <input
+                type="radio"
+                name="orcamento"
+                id="orc0"
+                value="0"
+                required
+              /><label for="orc0">Até R$ 100</label>
+              <input type="radio" name="orcamento" id="orc1" value="1" /><label
+                for="orc1"
+                >R$ 100 – R$ 300</label
+              >
+              <input type="radio" name="orcamento" id="orc2" value="2" /><label
+                for="orc2"
+                >Mais de R$ 300</label
+              >
+            </div>
+          </div>
+          <div class="quiz-step" data-step="3">
+            <h4>3/5: Tolerância a risco?</h4>
+            <div class="quiz-options">
+              <input
+                type="radio"
+                name="risco"
+                id="risk0"
+                value="0"
+                required
+              /><label for="risk0">Baixa (Segurança)</label>
+              <input type="radio" name="risco" id="risk1" value="1" /><label
+                for="risk1"
+                >Média (Equilíbrio)</label
+              >
+              <input type="radio" name="risco" id="risk2" value="2" /><label
+                for="risk2"
+                >Alta (Agressivo)</label
+              >
+            </div>
+          </div>
+          <div class="quiz-step" data-step="4">
+            <h4>4/5: Frequência de análise?</h4>
+            <div class="quiz-options">
+              <input
+                type="radio"
+                name="frequencia"
+                id="freq0"
+                value="0"
+                required
+              /><label for="freq0">Ocasional (Fim de semana)</label>
+              <input
+                type="radio"
+                name="frequencia"
+                id="freq1"
+                value="1"
+              /><label for="freq1">Regular (4-10/sem)</label>
+              <input
+                type="radio"
+                name="frequencia"
+                id="freq2"
+                value="2"
+              /><label for="freq2">Diária (Intensivo)</label>
+            </div>
+          </div>
+          <div class="quiz-step" data-step="5">
+            <h4>5/5: Objetivo principal?</h4>
+            <div class="quiz-options">
+              <input
+                type="radio"
+                name="objetivo"
+                id="obj0"
+                value="0"
+                required
+              /><label for="obj0">Aprender o método</label>
+              <input type="radio" name="objetivo" id="obj1" value="1" /><label
+                for="obj1"
+                >Otimizar tempo e métricas</label
+              >
+              <input type="radio" name="objetivo" id="obj2" value="2" /><label
+                for="obj2"
+                >Gerar relatórios (Creator)</label
+              >
+            </div>
+          </div>
+          <div class="quiz-step" data-step="6">
+            <h4>Configuração Final</h4>
+            <p>
+              Com base no seu perfil, sugerimos esta configuração inicial. Você
+              pode alterar depois.
+            </p>
+            <div class="form-group">
+              <label for="quiz-banca-inicial">Banca Inicial (R$)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="quiz-banca-inicial"
+                value="1000"
+              />
+            </div>
+            <div class="form-group">
+              <label for="quiz-stake-base">Stake Base (R$)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="quiz-stake-base"
+                value="10"
+              />
+            </div>
+          </div>
+
+          <div class="quiz-navigation">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="quiz-prev-btn"
+              disabled
+            >
+              Voltar
+            </button>
+            <button type="button" class="btn btn-primary" id="quiz-next-btn">
+              Próximo
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="quiz-finish-btn"
+              style="display: none"
+            >
+              Concluir
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-analise-detail">
+      <div class="modal-content">
+        <button class="modal-close-btn" data-modal-close="modal-analise-detail">
+          &times;
+        </button>
+        <div class="modal-header">
+          <h2 id="analise-title">Analisar Partida</h2>
+        </div>
+
+        <form id="analise-form">
+          <input type="hidden" id="analise-match-id" />
+          <div
+            class="match-odds"
+            style="justify-content: space-around; margin-bottom: 1rem"
+          >
+            <div class="odd-box">
+              <span>CASA (1)</span><strong id="analise-odd-1">1.85</strong>
+            </div>
+            <div class="odd-box">
+              <span>EMPATE (X)</span><strong id="analise-odd-x">3.50</strong>
+            </div>
+            <div class="odd-box">
+              <span>FORA (2)</span><strong id="analise-odd-2">4.20</strong>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Sua Análise (Prob. Estimada %)</label>
+            <div style="display: flex; gap: 1rem; margin-bottom: 0.5rem">
+              <input
+                type="number"
+                id="analise-prob-1"
+                class="form-control analise-prob"
+                value="50"
+              />
+              <input
+                type="number"
+                id="analise-prob-x"
+                class="form-control analise-prob"
+                value="25"
+              />
+              <input
+                type="number"
+                id="analise-prob-2"
+                class="form-control analise-prob"
+                value="25"
+              />
+            </div>
+            <span style="font-size: 0.9rem"
+              >Total: <strong id="analise-prob-total">100%</strong></span
+            >
+          </div>
+
+          <div class="card" style="background-color: var(--bg-body)">
+            <div class="stat-item" style="padding: 0; background: none">
+              <label>Edge Detectado (Valor)</label>
+              <span class="value positive" id="analise-edge">--%</span>
+            </div>
+            <div class="stat-item" style="padding: 0; background: none">
+              <label>Stake Sugerida (Kelly Frac.)</label>
+              <span class="value" id="analise-stake">R$ --</span>
+            </div>
+            <div class="form-group" style="margin-top: 1rem; margin-bottom: 0">
+              <label for="analise-kelly-frac">Fração Kelly</label>
+              <select class="form-control" id="analise-kelly-frac">
+                <option value="0.25">Baixo Risco (0.25)</option>
+                <option value="0.5" selected>Médio Risco (0.5)</option>
+                <option value="0.75">Alto Risco (0.75)</option>
+              </select>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-full"
+            style="margin-top: 1rem"
+          >
+            Salvar Análise
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-paywall">
+      <div class="modal-content">
+        <button class="modal-close-btn" data-modal-close="modal-paywall">
+          &times;
+        </button>
+        <div class="modal-header">
+          <h2>Planos Valora</h2>
+          <p>Aposte com método. Comece com o plano certo.</p>
+        </div>
+
+        <div class="card" style="border-color: var(--color-primary-accent)">
+          <h3>PRO (R$ 29,90/mês)</h3>
+          <p>O mais popular para quem busca eficiência.</p>
+          <ul>
+            <li>✅ Análises de valor ilimitadas</li>
+            <li>✅ Alertas de stake e anti-tilt</li>
+            <li>✅ KPIs e ROI detalhados</li>
+            <li>✅ Exportação de histórico (CSV)</li>
+          </ul>
+          <button class="btn btn-primary btn-full">
+            Fazer Upgrade para PRO
+          </button>
+        </div>
+        <div class="card">
+          <h3>Creator (R$ 69,90/mês)</h3>
+          <p>Para tipsters e criadores de comunidade.</p>
+          <ul>
+            <li>✅ Tudo do PRO</li>
+            <li>✅ Dashboard web para grupos</li>
+            <li>✅ Relatórios em PDF/CSV</li>
+          </ul>
+          <button class="btn btn-secondary btn-full">
+            Fazer Upgrade para Creator
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-education">
+      <div class="modal-content">
+        <button class="modal-close-btn" data-modal-close="modal-education">
+          &times;
+        </button>
+        <div class="modal-header">
+          <h2>📚 Conceitos Essenciais</h2>
+        </div>
+        <h3>O que é Aposta de Valor (EV+)?</h3>
+        <p>
+          Uma aposta de valor ocorre quando a sua probabilidade estimada de um
+          evento acontecer é MAIOR que a probabilidade implícita nas odds da
+          casa. Ex: Se a odd é 2.00 (50% de chance implícita) e você calcula que
+          a chance real é 55%, você encontrou valor.
+        </p>
+        <h3>O que é Kelly Fracionado?</h3>
+        <p>
+          É um método de gestão de banca para definir o tamanho da sua stake.
+          Ele calcula a fração ideal da sua banca para apostar, baseado no
+          "valor" (edge) que você encontrou. Usamos o fracionado (ex: 50% de
+          Kelly) para sermos mais conservadores e protegermos a banca da
+          variância.
+        </p>
+        <h3>O que é Tilt?</h3>
+        <p>
+          Tilt é um estado emocional (raiva, frustração) que leva a decisões
+          irracionais, geralmente após uma perda. É o maior inimigo do
+          apostador. Nossas regras anti-tilt (pausas, stop-loss) são feitas para
+          protegê-lo disso.
+        </p>
+        <p
+          style="font-weight: 600; color: var(--text-primary); margin-top: 1rem"
+        >
+          Lembre-se: +18. Isso é uma ferramenta educativa. Não garantimos
+          lucros. Aposte com responsabilidade.
+        </p>
+      </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        /* ---------------------------------- */
+        /* 1. Seletores e Estado Inicial      */
+        /* ---------------------------------- */
+        const $ = (selector) => document.querySelector(selector);
+        const $$ = (selector) => document.querySelectorAll(selector);
+
+        // Estado padrão do App
+        const defaultDB = {
+          profile: {
+            onboarded: false,
+            name: "Usuário",
+            level: "Iniciante", // Iniciante, Intermediário, Avançado
+            plan: "Gratuito", // Gratuito, Pro, Creator
+          },
+          bankroll: {
+            current: 1000,
+            initial: 1000,
+            stakeBase: 10,
+            dailyExposure: 0,
+            consecutiveLosses: 0,
+            stopLossStakes: 3, // Limite de 3 stakes perdidas
+            maxLossesInRow: 3,
+            pauseUntil: null, // Timestamp
+          },
+          history: [], // { id, date, event, odd, stake, result, pnl }
+          settings: {
+            theme: "light", // light, dark
+            oddsFormat: "decimal", // decimal, american
+          },
+        };
+
+        // Base de dados mock
+        const MOCK_MATCHES = [
+          {
+            id: 1,
+            league: "Premier League",
+            home: "Man. City",
+            away: "Liverpool",
+            odds: { 1: 1.85, x: 3.5, 2: 4.2 },
+          },
+          {
+            id: 2,
+            league: "La Liga",
+            home: "Real Madrid",
+            away: "Barcelona",
+            odds: { 1: 2.1, x: 3.4, 2: 3.2 },
+          },
+          {
+            id: 3,
+            league: "Serie A",
+            home: "Inter",
+            away: "Milan",
+            odds: { 1: 1.95, x: 3.2, 2: 3.8 },
+          },
+          {
+            id: 4,
+            league: "Bundesliga",
+            home: "Bayern",
+            away: "Dortmund",
+            odds: { 1: 1.5, x: 4.5, 2: 5.5 },
+          },
+          {
+            id: 5,
+            league: "Premier League",
+            home: "Arsenal",
+            away: "Chelsea",
+            odds: { 1: 2.0, x: 3.3, 2: 3.5 },
+          },
+        ];
+
+        const MOCK_HISTORY = [
+          {
+            id: 1,
+            date: "2025-11-10",
+            event: "Arsenal vs Chelsea",
+            odd: 2.0,
+            stake: 10,
+            result: "win",
+            pnl: 10,
+          },
+          {
+            id: 2,
+            date: "2025-11-10",
+            event: "Inter vs Milan",
+            odd: 1.95,
+            stake: 10,
+            result: "loss",
+            pnl: -10,
+          },
+          {
+            id: 3,
+            date: "2025-11-11",
+            event: "Bayern vs Dortmund",
+            odd: 1.5,
+            stake: 10,
+            result: "win",
+            pnl: 5,
+          },
+          {
+            id: 4,
+            date: "2025-11-12",
+            event: "Real Madrid vs Barcelona",
+            odd: 2.1,
+            stake: 10,
+            result: "win",
+            pnl: 11,
+          },
+        ];
+
+        let db = {};
+
+        /* ---------------------------------- */
+        /* 2. Persistência (localStorage)     */
+        /* ---------------------------------- */
+
+        function saveDB() {
+          try {
+            localStorage.setItem("valoraAppDB", JSON.stringify(db));
+          } catch (e) {
+            console.error("Erro ao salvar no localStorage:", e);
+          }
+        }
+
+        function loadDB() {
+          const data = localStorage.getItem("valoraAppDB");
+          if (data) {
+            db = JSON.parse(data);
+            // Migração: se faltar alguma chave do defaultDB, adicione-a
+            db = { ...defaultDB, ...db };
+            db.profile = { ...defaultDB.profile, ...db.profile };
+            db.bankroll = { ...defaultDB.bankroll, ...db.bankroll };
+            db.settings = { ...defaultDB.settings, ...db.settings };
+          } else {
+            db = defaultDB;
+            // Popular com dados mock se for a primeira vez
+            db.history = MOCK_HISTORY;
+          }
+        }
+
+        /* ---------------------------------- */
+        /* 3. Roteador SPA (Hash)             */
+        /* ---------------------------------- */
+
+        function handleRouteChange() {
+          const hash = window.location.hash || "#dashboard";
+          const route = hash.substring(1);
+
+          // Esconde todas as telas
+          $$(".screen").forEach((screen) => screen.classList.remove("active"));
+
+          // Mostra a tela ativa
+          const activeScreen = $(`#screen-${route}`);
+          if (activeScreen) {
+            activeScreen.classList.add("active");
+          } else {
+            $("#screen-dashboard").classList.add("active"); // Fallback
+          }
+
+          // Atualiza título do AppBar
+          const routeName = route.charAt(0).toUpperCase() + route.slice(1);
+          if ($("#app-bar-title")) {
+            $("#app-bar-title").textContent = routeName;
+          }
+
+          // Atualiza links ativos (Tabs e Sidebar)
+          $$(".nav-link").forEach((link) => {
+            link.classList.remove("active");
+            if (link.dataset.route === route) {
+              link.classList.add("active");
+            }
+          });
+
+          // Fecha o drawer mobile ao navegar
+          closeDrawer();
+
+          // Renderiza dados da tela ativa
+          switch (route) {
+            case "dashboard":
+              renderDashboard();
+              break;
+            case "analisar":
+              renderAnalisarList();
+              break;
+            case "banca":
+              renderBanca();
+              break;
+            case "historico":
+              renderHistorico();
+              break;
+            case "perfil":
+              renderPerfil();
+              break;
+          }
+        }
+
+        /* ---------------------------------- */
+        /* 4. Funções de Renderização         */
+        /* ---------------------------------- */
+
+        function renderDashboard() {
+          $("#dash-username").textContent = db.profile.name || "Usuário";
+          $("#dash-banca").textContent = `R$ ${db.bankroll.current.toFixed(2)}`;
+          $(
+            "#dash-exposicao"
+          ).textContent = `R$ ${db.bankroll.dailyExposure.toFixed(2)}`;
+
+          const roi =
+            ((db.bankroll.current - db.bankroll.initial) /
+              db.bankroll.initial) *
+            100;
+          const roiEl = $("#dash-roi");
+          roiEl.textContent = `${roi.toFixed(1)}%`;
+          roiEl.className = "value"; // reset
+          if (roi > 0) roiEl.classList.add("positive");
+          if (roi < 0) roiEl.classList.add("negative");
+        }
+
+        function renderAnalisarList() {
+          const listEl = $("#analisar-lista");
+          listEl.innerHTML = ""; // Limpa
+
+          MOCK_MATCHES.forEach((match) => {
+            const card = document.createElement("div");
+            card.className = "card match-card";
+            card.innerHTML = `
+                    <div class="match-info">
+                        ${match.home} vs ${match.away}
+                        <span>${match.league}</span>
+                    </div>
+                    <div class="match-odds">
+                        <div class="odd-box"><span>1</span><strong>${match.odds["1"]}</strong></div>
+                        <div class="odd-box"><span>X</span><strong>${match.odds["x"]}</strong></div>
+                        <div class="odd-box"><span>2</span><strong>${match.odds["2"]}</strong></div>
+                    </div>
+                `;
+            // Abre o modal de análise com os dados da partida
+            card.addEventListener("click", () => openAnalisarDetail(match));
+            listEl.appendChild(card);
+          });
+        }
+
+        function renderBanca() {
+          $("#banca-saldo").value = db.bankroll.current.toFixed(2);
+          $("#banca-stake").value = db.bankroll.stakeBase.toFixed(2);
+          $("#banca-stoploss").value = db.bankroll.stopLossStakes;
+          $("#banca-maxloss-row").value = db.bankroll.maxLossesInRow;
+          renderPauseStatus();
+        }
+
+        function renderPauseStatus() {
+          if (db.bankroll.pauseUntil && db.bankroll.pauseUntil > Date.now()) {
+            const remaining = new Date(db.bankroll.pauseUntil - Date.now());
+            const hours = Math.floor(
+              (db.bankroll.pauseUntil - Date.now()) / 3600000
+            );
+            const minutes = remaining.getUTCMinutes();
+            $(
+              "#banca-pause-status"
+            ).textContent = `Ativa (restam ${hours}h ${minutes}m)`;
+            $("#banca-pause-btn").textContent = "Pausa Ativa";
+            $("#banca-pause-btn").disabled = true;
+          } else {
+            $("#banca-pause-status").textContent = "Inativa";
+            $("#banca-pause-btn").textContent = "Ativar Pausa (12h)";
+            $("#banca-pause-btn").disabled = false;
+          }
+        }
+
+        function renderHistorico() {
+          const tbody = $("#history-table-body");
+          tbody.innerHTML = ""; // Limpa
+
+          // Renderiza de trás para frente (mais recente primeiro)
+          [...db.history].reverse().forEach((item) => {
+            const row = document.createElement("tr");
+            const pnlClass =
+              item.pnl > 0 ? "positive" : item.pnl < 0 ? "negative" : "";
+            row.innerHTML = `
+                    <td>${item.date}</td>
+                    <td>${item.event}</td>
+                    <td>${item.odd.toFixed(2)}</td>
+                    <td>R$ ${item.stake.toFixed(2)}</td>
+                    <td><span class="badge ${
+                      item.result === "win" ? "badge-green" : "badge-red"
+                    }">${item.result}</span></td>
+                    <td><span class="${pnlClass}">${item.pnl.toFixed(
+              2
+            )}</span></td>
+                `;
+            tbody.appendChild(row);
+          });
+
+          // Renderiza gráfico
+          renderSVGGraph(db.history, db.bankroll.initial);
+        }
+
+        function renderPerfil() {
+          $("#perfil-name").textContent = db.profile.level;
+          $("#perfil-plan").textContent = db.profile.plan;
+          $("#perfil-odds").value = db.settings.oddsFormat;
+        }
+
+        /* ---------------------------------- */
+        /* 5. Lógica da Aplicação             */
+        /* ---------------------------------- */
+
+        // --- Toasts ---
+        function showToast(message, type = "success") {
+          const container = $("#toast-container");
+          const toast = document.createElement("div");
+          toast.className = `toast ${type}`;
+          toast.textContent = message;
+          container.appendChild(toast);
+
+          setTimeout(() => {
+            toast.remove();
+          }, 3000);
+        }
+
+        // --- Drawer (Mobile Menu) ---
+        const drawer = $("#app-drawer");
+        const drawerOpenBtn = $("#drawer-open-btn");
+        const drawerOverlay = $("#drawer-overlay");
+
+        function openDrawer() {
+          drawer.classList.add("active");
+        }
+        function closeDrawer() {
+          drawer.classList.remove("active");
+        }
+
+        drawerOpenBtn.addEventListener("click", openDrawer);
+        drawerOverlay.addEventListener("click", closeDrawer);
+
+        // --- Modais ---
+        function openModal(modalId) {
+          $(`#${modalId}`).classList.add("active");
+        }
+        function closeModal(modalId) {
+          $(`#${modalId}`).classList.remove("active");
+        }
+
+        $$("[data-modal-close]").forEach((btn) => {
+          btn.addEventListener("click", () =>
+            closeModal(btn.dataset.modalClose)
+          );
+        });
+
+        // --- Tema (Light/Dark) ---
+        function applyTheme(theme) {
+          document.body.dataset.theme = theme;
+          db.settings.theme = theme;
+          saveDB();
+          $("#theme-select-mobile").value = theme;
+          $("#theme-select-desktop").value = theme;
+        }
+
+        $("#theme-select-mobile").addEventListener("change", (e) =>
+          applyTheme(e.target.value)
+        );
+        $("#theme-select-desktop").addEventListener("change", (e) =>
+          applyTheme(e.target.value)
+        );
+
+        // --- Lógica do Quiz (Onboarding) ---
+        const quizForm = $("#quiz-form");
+        const quizSteps = $$(".quiz-step");
+        const quizPrevBtn = $("#quiz-prev-btn");
+        const quizNextBtn = $("#quiz-next-btn");
+        const quizFinishBtn = $("#quiz-finish-btn");
+        let currentStep = 1;
+        const totalSteps = quizSteps.length; // 6 (incluindo config final)
+
+        function showQuizStep(stepNum) {
+          quizSteps.forEach((step) => step.classList.remove("active"));
+          $(`.quiz-step[data-step="${stepNum}"]`).classList.add("active");
+
+          quizPrevBtn.disabled = stepNum === 1;
+          quizNextBtn.style.display =
+            stepNum === totalSteps ? "none" : "inline-block";
+          quizFinishBtn.style.display =
+            stepNum === totalSteps ? "inline-block" : "none";
+        }
+
+        quizNextBtn.addEventListener("click", () => {
+          // Validação simples
+          const currentStepEl = $(`.quiz-step[data-step="${currentStep}"]`);
+          const input = currentStepEl.querySelector(
+            'input[type="radio"]:checked'
+          );
+          if (!input && currentStep < totalSteps) {
+            // Ignora validação no último passo
+            showToast("Por favor, selecione uma opção.", "warning");
+            return;
+          }
+
+          if (currentStep < totalSteps) {
+            currentStep++;
+            showQuizStep(currentStep);
+          }
+        });
+
+        quizPrevBtn.addEventListener("click", () => {
+          if (currentStep > 1) {
+            currentStep--;
+            showQuizStep(currentStep);
+          }
+        });
+
+        quizForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          let score = 0;
+          new FormData(quizForm).forEach((value, key) => {
+            if (key !== "quiz-banca-inicial" && key !== "quiz-stake-base") {
+              score += parseInt(value);
+            }
+          });
+
+          // 0-3 Gratuito/Iniciante, 4-7 Pro/Inter, 8-10 Creator/Avançado
+          if (score <= 3) {
+            db.profile.level = "Iniciante";
+            db.profile.plan = "Gratuito";
+          } else if (score <= 7) {
+            db.profile.level = "Intermediário";
+            db.profile.plan = "Pro";
+          } else {
+            db.profile.level = "Avançado";
+            db.profile.plan = "Creator";
+          }
+
+          db.profile.onboarded = true;
+          db.bankroll.initial = parseFloat($("#quiz-banca-inicial").value);
+          db.bankroll.current = db.bankroll.initial;
+          db.bankroll.stakeBase = parseFloat($("#quiz-stake-base").value);
+
+          saveDB();
+          closeModal("modal-quiz");
+          showToast("Perfil salvo com sucesso!", "success");
+          renderDashboard(); // Atualiza dashboard com novos dados
+          renderPerfil(); // Atualiza tela de perfil
+        });
+
+        // --- Lógica de Análise (Kelly) ---
+        let currentMatchData = {};
+        const analiseForm = $("#analise-form");
+        const probInputs = $$(".analise-prob");
+
+        function openAnalisarDetail(match) {
+          currentMatchData = match;
+          $("#analise-title").textContent = `${match.home} vs ${match.away}`;
+          $("#analise-match-id").value = match.id;
+          $("#analise-odd-1").textContent = match.odds["1"];
+          $("#analise-odd-x").textContent = match.odds["x"];
+          $("#analise-odd-2").textContent = match.odds["2"];
+
+          // Resetar probabilidades e recalcular edge/stake
+          $("#analise-prob-1").value = 33;
+          $("#analise-prob-x").value = 33;
+          $("#analise-prob-2").value = 34;
+          updateProbTotal();
+          calculateEdgeAndStake();
+
+          openModal("modal-analise-detail");
+        }
+
+        function updateProbTotal() {
+          let total = 0;
+          probInputs.forEach(
+            (input) => (total += parseFloat(input.value) || 0)
+          );
+          $("#analise-prob-total").textContent = `${total.toFixed(0)}%`;
+          $("#analise-prob-total").style.color =
+            total.toFixed(0) == 100 ? "var(--color-green)" : "var(--color-red)";
+        }
+
+        probInputs.forEach((input) => {
+          input.addEventListener("input", () => {
+            updateProbTotal();
+            calculateEdgeAndStake();
+          });
+        });
+        $("#analise-kelly-frac").addEventListener(
+          "change",
+          calculateEdgeAndStake
+        );
+
+        function calculateEdgeAndStake() {
+          // 1. Encontrar a melhor aposta (maior edge)
+          const p1 = parseFloat($("#analise-prob-1").value) / 100;
+          const px = parseFloat($("#analise-prob-x").value) / 100;
+          const p2 = parseFloat($("#analise-prob-2").value) / 100;
+
+          const o1 = currentMatchData.odds["1"];
+          const ox = currentMatchData.odds["x"];
+          const o2 = currentMatchData.odds["2"];
+
+          const imp1 = 1 / o1;
+          const impX = 1 / ox;
+          const imp2 = 1 / o2;
+
+          const edge1 = p1 - imp1;
+          const edgeX = px - impX;
+          const edge2 = p2 - imp2;
+
+          const edges = [
+            { name: "1", edge: edge1, p: p1, odd: o1 },
+            { name: "X", edge: edgeX, p: px, odd: ox },
+            { name: "2", edge: edge2, p: p2, odd: o2 },
+          ];
+
+          // Encontra o maior edge positivo
+          const bestBet = edges.reduce(
+            (best, current) => {
+              return current.edge > best.edge ? current : best;
+            },
+            { edge: 0 }
+          );
+
+          // 2. Calcular Stake se houver valor (edge > 0)
+          if (bestBet.edge > 0) {
+            const p = bestBet.p; // Probabilidade estimada
+            const b = bestBet.odd - 1; // Odds decimais - 1
+            const kellyFull = (b * p - (1 - p)) / b;
+
+            const fracao = parseFloat($("#analise-kelly-frac").value);
+            const stake = kellyFull * fracao * db.bankroll.current;
+
+            $("#analise-edge").textContent = `+${(bestBet.edge * 100).toFixed(
+              1
+            )}% (Aposta: ${bestBet.name})`;
+            $("#analise-edge").className = "value positive";
+
+            // Limita a stake a um máximo (ex: 10% da banca) por segurança
+            const maxStake = db.bankroll.current * 0.1;
+            const finalStake = Math.min(stake, maxStake);
+
+            $("#analise-stake").textContent = `R$ ${finalStake.toFixed(2)}`;
+          } else {
+            $("#analise-edge").textContent = `Sem Valor (${(
+              bestBet.edge * 100
+            ).toFixed(1)}%)`;
+            $("#analise-edge").className = "value negative";
+            $("#analise-stake").textContent = `R$ 0.00`;
+          }
+        }
+
+        // Salvar Análise (simulação - adiciona PNL 0 por enquanto)
+        // Em um app real, o resultado (win/loss) seria atualizado depois.
+        analiseForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          // Lógica para salvar a aposta no histórico...
+          // Por ora, apenas fechamos e damos feedback.
+          showToast("Análise salva (simulação)", "success");
+          closeModal("modal-analise-detail");
+        });
+
+        // --- Lógica de Gráfico SVG ---
+        function renderSVGGraph(data, initialBankroll) {
+          const svg = $("#banca-chart-svg");
+          const tooltip = $("#chart-tooltip");
+          if (!svg) return;
+          svg.innerHTML = ""; // Limpa gráfico anterior
+
+          const padding = 10;
+          const svgWidth = 300; // viewBox width
+          const svgHeight = 100; // viewBox height
+
+          let bankrollHistory = [initialBankroll];
+          let currentBankroll = initialBankroll;
+          data.forEach((item) => {
+            currentBankroll += item.pnl;
+            bankrollHistory.push(currentBankroll);
+          });
+
+          if (bankrollHistory.length < 2) {
+            svg.innerHTML = `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="${getComputedStyle(
+              document.body
+            ).getPropertyValue(
+              "--text-secondary"
+            )}" font-size="10">Sem dados suficientes</text>`;
+            return;
+          }
+
+          const min = Math.min(...bankrollHistory) - padding;
+          const max = Math.max(...bankrollHistory) + padding;
+          const range = max - min;
+
+          const points = bankrollHistory
+            .map((val, i) => {
+              const x = (i / (bankrollHistory.length - 1)) * svgWidth;
+              const y = svgHeight - ((val - min) / range) * svgHeight;
+              return `${x.toFixed(2)},${y.toFixed(2)}`;
+            })
+            .join(" ");
+
+          // Linhas de grid
+          svg.innerHTML += `<line class="grid-line" x1="0" y1="${
+            svgHeight / 2
+          }" x2="${svgWidth}" y2="${svgHeight / 2}"></line>`;
+          svg.innerHTML += `<line class="grid-line" x1="0" y1="${svgHeight}" x2="${svgWidth}" y2="${svgHeight}"></line>`;
+
+          // Linha do gráfico
+          const polyline = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "polyline"
+          );
+          polyline.setAttribute("points", points);
+          polyline.setAttribute("class", "chart-line");
+          svg.appendChild(polyline);
+
+          // Pontos de Tooltip
+          bankrollHistory.forEach((val, i) => {
+            const x = (i / (bankrollHistory.length - 1)) * svgWidth;
+            const y = svgHeight - ((val - min) / range) * svgHeight;
+
+            const circle = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "circle"
+            );
+            circle.setAttribute("class", "tooltip-dot");
+            circle.setAttribute("cx", x);
+            circle.setAttribute("cy", y);
+            circle.setAttribute("r", 2);
+            circle.dataset.value = `R$ ${val.toFixed(2)}`;
+
+            circle.addEventListener("mouseover", (e) => {
+              tooltip.textContent = e.target.dataset.value;
+              tooltip.style.opacity = 1;
+              tooltip.style.visibility = "visible";
+              // Posição relativa ao container do SVG
+              const rect = svg.getBoundingClientRect();
+              const parentRect = svg.parentElement.getBoundingClientRect();
+              tooltip.style.left = `${e.clientX - parentRect.left + 10}px`;
+              tooltip.style.top = `${e.clientY - parentRect.top - 15}px`;
+            });
+            circle.addEventListener("mouseout", () => {
+              tooltip.style.opacity = 0;
+              tooltip.style.visibility = "hidden";
+            });
+
+            svg.appendChild(circle);
+          });
+        }
+
+        // --- Botões e Ações ---
+
+        // Banca
+        $("#banca-save-btn").addEventListener("click", () => {
+          db.bankroll.current = parseFloat($("#banca-saldo").value);
+          db.bankroll.stakeBase = parseFloat($("#banca-stake").value);
+          db.bankroll.stopLossStakes = parseInt($("#banca-stoploss").value);
+          db.bankroll.maxLossesInRow = parseInt($("#banca-maxloss-row").value);
+          saveDB();
+          showToast("Gestão de banca atualizada!");
+          renderDashboard(); // Atualiza valor no dashboard
+        });
+
+        $("#banca-pause-btn").addEventListener("click", () => {
+          if (
+            confirm(
+              "Tem certeza que deseja ativar uma pausa de 12 horas? Você não poderá adicionar novas análises."
+            )
+          ) {
+            db.bankroll.pauseUntil = Date.now() + 12 * 60 * 60 * 1000; // 12 horas
+            saveDB();
+            renderPauseStatus();
+            showToast("Pausa anti-tilt ativada.", "warning");
+          }
+        });
+
+        // Histórico
+        $("#export-csv-btn").addEventListener("click", () => {
+          let csv = "Data,Evento,Odd,Stake,Resultado,P/L\n";
+          db.history.forEach((item) => {
+            csv += `${item.date},"${item.event}",${item.odd},${item.stake},${item.result},${item.pnl}\n`;
+          });
+
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "valora_historico.csv";
+          link.click();
+          showToast("Histórico exportado!");
+        });
+
+        $("#clear-history-btn").addEventListener("click", () => {
+          if (
+            confirm(
+              "ATENÇÃO: Isso apagará permanentemente todo o seu histórico. Deseja continuar?"
+            )
+          ) {
+            db.history = [];
+            saveDB();
+            renderHistorico();
+            showToast("Histórico limpo.", "error");
+          }
+        });
+
+        // Perfil
+        $("#perfil-redo-quiz").addEventListener("click", () =>
+          openModal("modal-quiz")
+        );
+        $("#perfil-upgrade-btn").addEventListener("click", () =>
+          openModal("modal-paywall")
+        );
+        $("#perfil-save-prefs").addEventListener("click", () => {
+          db.settings.oddsFormat = $("#perfil-odds").value;
+          saveDB();
+          showToast("Preferências salvas!");
+        });
+
+        // Educação
+        $$(
+          "#sidebar-education-btn, #dash-education-btn, #drawer-education-btn"
+        ).forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openModal("modal-education");
+            closeDrawer();
+          });
+        });
+
+        /* ---------------------------------- */
+        /* 6. Inicialização do App            */
+        /* ---------------------------------- */
+
+        function init() {
+          loadDB();
+          applyTheme(db.settings.theme); // Aplica tema salvo
+
+          // Verifica se é o primeiro acesso
+          if (!db.profile.onboarded) {
+            openModal("modal-quiz");
+          }
+
+          // Inicia o roteador
+          handleRouteChange();
+          window.addEventListener("hashchange", handleRouteChange);
+
+          // Verifica status da pausa
+          renderPauseStatus();
+        }
+
+        init(); // Inicia o app
+      });
+    </script>
+  </body>
+</html>
